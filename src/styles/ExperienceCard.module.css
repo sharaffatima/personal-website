@@ -1,0 +1,173 @@
+.experienceCard {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  padding: 0;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  background: var(--c1);
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--c1);
+}
+
+.line {
+  width: 2px;
+  height: calc(100% + 2rem);
+  background: linear-gradient(
+    180deg,
+    var(--c1),
+    var(--ink),
+    transparent
+  );
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 60px;
+}
+
+.content {
+  flex: 1;
+  background: var(--paper2);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.15s;
+}
+
+.content:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 rgba(0, 255, 135, 0.2);
+  border-color: var(--c1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.role {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--c1);
+  margin: 0;
+}
+
+.company {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 0.25rem 0 0 0;
+  font-weight: 500;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(0, 255, 135, 0.15);
+  color: var(--c1);
+  border: 1px solid var(--c1);
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--c4);
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.achievements {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.achievements li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.achievements li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--c4);
+  font-weight: bold;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tech {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--c4);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+
+@media (max-width: 620px) {
+  .experienceCard {
+    gap: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .badge {
+    align-self: flex-start;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .role {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,115 @@
+.section {
+  padding: 4rem 2.5rem;
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.sectionEyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: var(--c1);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.secTitle {
+  font-family: 'Oxanium', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.underlineSquig {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c3),
+    var(--c3) 8px,
+    transparent 8px,
+    transparent 12px
+  );
+}
+
+.interestsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.interestCard {
+  background: var(--paper2);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 6px 6px 0 rgba(0, 255, 135, 0.15);
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.interestCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c4), var(--c3));
+}
+
+.interestCard:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(0, 255, 135, 0.3);
+  border-color: var(--c1);
+}
+
+.interestIconWrapper {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(56, 189, 248, 0.1));
+  border: 2px solid var(--c1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.interestIcon {
+  color: var(--c1);
+}
+
+.interestTitle {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--c1);
+  margin-bottom: 0.75rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.interestDesc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .interestsGrid {
+    grid-template-columns: 1fr;
+  }
+}

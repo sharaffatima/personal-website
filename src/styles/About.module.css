@@ -1,0 +1,78 @@
+.aboutStrip {
+  background: #0a1a30;
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 2.5rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.aboutStrip h3 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: var(--c1);
+}
+
+.aboutStrip p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.funFacts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.funFacts li {
+  background: #0d1f3c;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  box-shadow: 3px 3px 0 rgba(0, 255, 135, 0.2);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--text);
+}
+
+.factIcon {
+  color: var(--c1);
+  flex-shrink: 0;
+}
+
+.factIcon {
+  color: var(--c1);
+  flex-shrink: 0;
+}
+
+.star {
+  display: inline-flex;
+  animation: spin 8s linear infinite;
+  align-items: center;
+  justify-content: center;
+  color: var(--c1);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .aboutStrip {
+    grid-template-columns: 1fr;
+  }
+}

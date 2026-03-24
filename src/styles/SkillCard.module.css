@@ -1,0 +1,75 @@
+.skillCard {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 4px 4px 0 rgba(56, 189, 248, 0.25);
+  background: var(--paper2);
+  transition: transform 0.15s;
+}
+
+.skillCard:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.sk1 {
+  background: #071e2e;
+  border-color: var(--c1);
+}
+
+.sk2 {
+  background: #071a2a;
+  border-color: var(--c2);
+}
+
+.sk3 {
+  background: #071820;
+  border-color: var(--c4);
+}
+
+.sk4 {
+  background: #0c0f28;
+  border-color: var(--c5);
+}
+
+.skillCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.skillIcon {
+  color: var(--c1);
+  flex-shrink: 0;
+}
+
+.skillCardTitle {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(126, 184, 255, 0.3);
+  color: var(--text);
+  margin: 0;
+}
+
+.skillItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  padding: 0.25rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.skillItem::before {
+  content: '▶';
+  font-size: 0.55rem;
+  color: var(--c1);
+  flex-shrink: 0;
+}

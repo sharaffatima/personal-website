@@ -1,0 +1,19 @@
+.cursor {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background 0.15s, transform 0.1s;
+  mix-blend-mode: screen;
+}
+
+.cursor.big {
+  transform: translate(-50%, -50%) scale(3);
+  background: var(--c4);
+}
