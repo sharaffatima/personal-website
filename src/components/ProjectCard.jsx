@@ -1,9 +1,13 @@
-import * as Icons from 'lucide-react';
-import { ExternalLink } from 'lucide-react';
+import { Activity, BarChart3, ExternalLink } from 'lucide-react';
 import styles from '../styles/ProjectCard.module.css';
 
+const projectIcons = {
+  Activity,
+  BarChart3
+};
+
 export default function ProjectCard({ project }) {
-  const IconComponent = Icons[project.icon];
+  const IconComponent = projectIcons[project.icon];
   
   return (
     <div className={`${styles.projCard} ${styles[project.cardClass]}`}>

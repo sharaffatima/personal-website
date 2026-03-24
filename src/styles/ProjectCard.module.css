@@ -106,3 +106,23 @@
 .projLink:hover {
   color: var(--c1);
 }
+
+@media (max-width: 480px) {
+  .projCard {
+    padding: 1.2rem;
+  }
+
+  .projNum {
+    font-size: 2.7rem;
+    right: 0.75rem;
+  }
+
+  .projName {
+    font-size: 1.15rem;
+    padding-right: 2rem;
+  }
+
+  .projDesc {
+    font-size: 0.84rem;
+  }
+}

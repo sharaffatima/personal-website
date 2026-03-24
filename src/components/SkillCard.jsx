@@ -1,8 +1,14 @@
-import * as Icons from 'lucide-react';
+import { Code, Database, GitBranch } from 'lucide-react';
 import styles from '../styles/SkillCard.module.css';
 
+const skillIcons = {
+  Code,
+  Database,
+  GitBranch
+};
+
 export default function SkillCard({ skill }) {
-  const IconComponent = Icons[skill.icon];
+  const IconComponent = skillIcons[skill.icon];
   
   return (
     <div className={`${styles.skillCard} ${styles[skill.cardClass]}`} data-skill-card>

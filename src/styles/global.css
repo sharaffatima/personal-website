@@ -25,12 +25,21 @@ html {
   scroll-behavior: smooth;
 }
 
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Space Grotesk', sans-serif;
   background: var(--paper);
   color: var(--text);
   cursor: none;
   overflow-x: hidden;
+}
+
+svg {
+  flex-shrink: 0;
 }
 
 /* custom cursor */
@@ -122,5 +131,15 @@ body {
 @media (max-width: 620px) {
   .hero-name {
     font-size: 3.5rem;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+
+  #cursor {
+    display: none;
   }
 }

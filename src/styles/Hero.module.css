@@ -181,3 +181,79 @@
   background: transparent;
   color: var(--text);
 }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.25rem 3rem;
+  }
+
+  .heroSup {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    flex-wrap: wrap;
+  }
+
+  .heroName {
+    font-size: clamp(2.8rem, 18vw, 4.6rem);
+    letter-spacing: 2px;
+  }
+
+  .heroRole {
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+  }
+
+  .heroDesc {
+    max-width: none;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    padding-left: 1rem;
+  }
+
+  .heroCtas {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3.5rem 1rem 2.5rem;
+  }
+
+  .heroSup {
+    padding: 0.35rem 0.7rem;
+  }
+
+  .heroName {
+    font-size: clamp(2.4rem, 17vw, 3.6rem);
+    line-height: 1;
+  }
+
+  .heroDesc {
+    border-left-width: 3px;
+    font-size: 0.93rem;
+    padding-left: 0.85rem;
+  }
+
+  .stickerRow {
+    gap: 0.55rem;
+  }
+
+  .sticker {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+  }
+}

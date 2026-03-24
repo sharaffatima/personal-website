@@ -56,3 +56,54 @@
   background: rgba(0, 255, 135, 0.08);
   color: var(--c1);
 }
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: rgba(13, 31, 60, 0.92);
+  color: var(--c1);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.25rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+  }
+
+  .menuButton {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .navLinks {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.5rem;
+  }
+
+  .navLinksOpen {
+    display: flex;
+  }
+
+  .navLinks a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    background: rgba(0, 255, 135, 0.04);
+    border: 1px solid rgba(126, 184, 255, 0.2);
+  }
+}

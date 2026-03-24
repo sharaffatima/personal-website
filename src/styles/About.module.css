@@ -52,11 +52,6 @@
   flex-shrink: 0;
 }
 
-.factIcon {
-  color: var(--c1);
-  flex-shrink: 0;
-}
-
 .star {
   display: inline-flex;
   animation: spin 8s linear infinite;
@@ -74,5 +69,21 @@
 @media (max-width: 620px) {
   .aboutStrip {
     grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .aboutStrip h3 {
+    font-size: 1.65rem;
+    letter-spacing: 2px;
+  }
+
+  .aboutStrip p {
+    font-size: 0.95rem;
+  }
+
+  .funFacts li {
+    font-size: 0.84rem;
+    padding: 0.6rem 0.75rem;
   }
 }

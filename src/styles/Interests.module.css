@@ -109,7 +109,35 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 1.25rem;
+  }
+
   .interestsGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .interestCard {
+    padding: 1.25rem;
+  }
+
+  .interestIconWrapper {
+    width: 52px;
+    height: 52px;
+  }
+
+  .interestTitle {
+    font-size: 1.02rem;
+    letter-spacing: 1px;
+  }
+
+  .interestDesc {
+    font-size: 0.9rem;
   }
 }

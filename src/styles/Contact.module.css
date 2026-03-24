@@ -63,3 +63,36 @@
   color: #060d1a;
   transform: translate(-2px, -2px);
 }
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .contactBlob {
+    padding: 2.25rem 1.25rem;
+    border-radius: 18px;
+  }
+
+  .contactBlob h3 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .contactBlob p {
+    font-size: 0.94rem;
+  }
+
+  .contactBtn {
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+  }
+}

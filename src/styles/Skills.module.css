@@ -51,13 +51,22 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 1.25rem;
+  }
+
   .skillsWrap {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
   .skillsWrap {
     grid-template-columns: 1fr;
+    max-width: none;
   }
 }
