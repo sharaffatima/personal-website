@@ -32,10 +32,7 @@ export default function Interests() {
   return (
     <section id="interests" className={styles.section}>
       <div className={styles.sectionEyebrow}>✦ what drives me</div>
-      <h2 className={styles.secTitle}>
-        Interests & Passions
-        <span className={styles.underlineSquig}></span>
-      </h2>
+      <h2 className={styles.secTitle}>Interests & Passions</h2>
       <div className={styles.interestsGrid}>
         {interests.map((interest, idx) => {
           const IconComponent = interest.icon;

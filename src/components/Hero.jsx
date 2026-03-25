@@ -14,7 +14,7 @@ export default function Hero() {
         <span className={styles.stroke}>SHARAF</span>
       </h1>
       <p className={`${styles.heroRole} pop pop3`}>
-        <span style={{ fontFamily: '"JetBrains Mono", monospace' }}>Backend Developer & System Designer</span>
+        <span style={{ fontFamily: '"IBM Plex Mono", monospace' }}>Backend Developer & System Designer</span>
         <span className={styles.cursorBlink}></span>
       </p>
       <p className={`${styles.heroDesc} pop pop3`}>

@@ -1,24 +1,24 @@
 .aboutStrip {
-  background: #0a1a30;
-  border-top: 3px solid var(--ink);
-  border-bottom: 3px solid var(--ink);
-  padding: 2.5rem 2.5rem;
+  background: linear-gradient(145deg, rgba(20, 21, 68, 0.98), rgba(7, 15, 43, 0.98));
+  border-top: 1px solid rgba(176, 179, 223, 0.5);
+  border-bottom: 1px solid rgba(176, 179, 223, 0.5);
+  padding: clamp(2rem, 5vw, 2.8rem);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: center;
-  max-width: 980px;
+  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
   margin: 0 auto;
 }
 
 .aboutStrip h3 {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   line-height: 1.2;
   margin-bottom: 0.75rem;
-  color: var(--c1);
+  color: var(--c5);
 }
 
 .aboutStrip p {
@@ -35,12 +35,12 @@
 }
 
 .funFacts li {
-  background: #0d1f3c;
-  border: 2px solid var(--ink);
+  background: rgba(27, 26, 85, 0.72);
+  border: 1px solid rgba(176, 179, 223, 0.4);
   border-radius: 6px;
   padding: 0.5rem 0.9rem;
   font-size: 0.9rem;
-  box-shadow: 3px 3px 0 rgba(0, 255, 135, 0.2);
+  box-shadow: 0 8px 18px rgba(4, 6, 20, 0.32);
   display: flex;
   gap: 0.5rem;
   align-items: center;

@@ -4,7 +4,7 @@ import styles from '../styles/Contact.module.css';
 export default function Contact() {
   const contactLinks = [
     {
-      label: 'sharaffatima000@gmail.com',
+      label: 'Email',
       href: 'mailto:sharaffatima000@gmail.com'
     },
     {

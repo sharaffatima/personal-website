@@ -1,13 +1,13 @@
 .section {
-  padding: 4rem 2.5rem;
-  max-width: 980px;
+  padding: var(--section-block) 0;
+  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
 .sectionEyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 4px;
@@ -17,7 +17,7 @@
 }
 
 .secTitle {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 600;
   letter-spacing: 3px;
@@ -25,21 +25,6 @@
   margin-bottom: 2.5rem;
   position: relative;
   display: inline-block;
-}
-
-.underlineSquig {
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--c3),
-    var(--c3) 8px,
-    transparent 8px,
-    transparent 12px
-  );
 }
 
 .skillsWrap {
@@ -51,20 +36,12 @@
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 3.5rem 1.25rem;
-  }
-
   .skillsWrap {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .section {
-    padding: 3rem 1rem;
-  }
-
   .skillsWrap {
     grid-template-columns: 1fr;
     max-width: none;

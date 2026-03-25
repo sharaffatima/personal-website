@@ -1,16 +1,16 @@
 .hero {
   position: relative;
-  padding: 5rem 2.5rem 4rem;
-  max-width: 980px;
+  padding: clamp(3rem, 8vw, 5rem) 0 clamp(2.4rem, 6vw, 4rem);
+  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
   margin: 0 auto;
   z-index: 1;
 }
 
 .heroSup {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.85rem;
   color: var(--c1);
-  background: rgba(0, 255, 135, 0.08);
+  background: rgba(146, 144, 195, 0.08);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -32,7 +32,7 @@
 }
 
 .heroName {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3.5rem, 10vw, 6.5rem);
   font-weight: 600;
   line-height: 1.05;
@@ -54,7 +54,7 @@
 }
 
 .heroRole {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 1.1rem;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
@@ -89,13 +89,14 @@
 }
 
 .sticker {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.05em;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  border: 1.5px solid;
+  border: 1px solid;
+  color: var(--text);
   cursor: default;
   transition: transform 0.15s, box-shadow 0.15s;
   user-select: none;
@@ -107,39 +108,33 @@
 }
 
 .s1 {
-  background: rgba(0, 255, 135, 0.15);
-  color: var(--c1);
-  border-color: var(--c1);
+  background: rgba(146, 144, 195, 0.24);
+  border-color: rgba(176, 179, 223, 0.95);
 }
 
 .s2 {
-  background: rgba(0, 200, 224, 0.15);
-  color: var(--c2);
-  border-color: var(--c2);
+  background: rgba(83, 92, 145, 0.34);
+  border-color: rgba(146, 144, 195, 0.92);
 }
 
 .s3 {
-  background: rgba(6, 255, 165, 0.12);
-  color: var(--c3);
-  border-color: var(--c3);
+  background: rgba(27, 26, 85, 0.7);
+  border-color: rgba(146, 144, 195, 0.9);
 }
 
 .s4 {
-  background: rgba(56, 189, 248, 0.15);
-  color: var(--c4);
-  border-color: var(--c4);
+  background: rgba(122, 130, 183, 0.24);
+  border-color: rgba(176, 179, 223, 0.92);
 }
 
 .s5 {
-  background: rgba(129, 140, 248, 0.15);
-  color: var(--c5);
-  border-color: var(--c5);
+  background: rgba(176, 179, 223, 0.24);
+  border-color: rgba(195, 198, 235, 0.95);
 }
 
 .s6 {
-  background: rgba(126, 184, 255, 0.1);
-  color: var(--ink);
-  border-color: var(--ink);
+  background: rgba(83, 92, 145, 0.38);
+  border-color: rgba(195, 198, 235, 0.95);
 }
 
 .heroCtas {
@@ -149,7 +144,7 @@
 }
 
 .btn {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Sora', sans-serif;
   font-weight: 800;
   font-size: 0.95rem;
   padding: 0.8rem 2rem;
@@ -174,7 +169,7 @@
 
 .btnMain {
   background: var(--c1);
-  color: #060d1a;
+  color: #070f2b;
 }
 
 .btnGhost {
@@ -184,7 +179,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 4rem 1.25rem 3rem;
+    padding: clamp(2.6rem, 9vw, 4rem) 0 clamp(2.2rem, 6vw, 3rem);
   }
 
   .heroSup {
@@ -225,7 +220,7 @@
 
 @media (max-width: 480px) {
   .hero {
-    padding: 3.5rem 1rem 2.5rem;
+    padding: clamp(2.4rem, 8vw, 3.3rem) 0 2.4rem;
   }
 
   .heroSup {

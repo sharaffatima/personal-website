@@ -12,7 +12,6 @@ export default function About() {
 
   return (
     <>
-      <div style={{ width: '100%', height: '40px', background: 'repeating-linear-gradient(90deg, var(--c1) 0, var(--c1) 20px, var(--paper) 20px, var(--paper) 40px, var(--c2) 40px, var(--c2) 60px, var(--paper) 60px, var(--paper) 80px, var(--c4) 80px, var(--c4) 100px)', opacity: '0.6' }}></div>
       <div className={styles.aboutStrip}>
         <div>
           <h3>
@@ -36,7 +35,6 @@ export default function About() {
           })}
         </ul>
       </div>
-      <div style={{ width: '100%', height: '40px', background: 'repeating-linear-gradient(90deg, var(--c1) 0, var(--c1) 20px, var(--paper) 20px, var(--paper) 40px, var(--c2) 40px, var(--c2) 60px, var(--paper) 60px, var(--paper) 80px, var(--c4) 80px, var(--c4) 100px)', opacity: '0.6' }}></div>
     </>
   );
 }

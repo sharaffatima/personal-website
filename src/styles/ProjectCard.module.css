@@ -1,17 +1,20 @@
 .projCard {
-  background: var(--paper2);
-  border: 3px solid var(--ink);
-  border-radius: 12px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(146, 144, 195, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(27, 26, 85, 0.96), rgba(7, 15, 43, 0.95));
+  border: 1px solid rgba(146, 144, 195, 0.36);
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 6px 6px 0 rgba(0, 255, 135, 0.25);
-  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 12px 26px rgba(3, 5, 18, 0.42);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   position: relative;
   overflow: hidden;
 }
 
 .projCard:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 9px 9px 0 rgba(0, 255, 135, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(3, 5, 18, 0.5);
+  border-color: rgba(146, 144, 195, 0.62);
 }
 
 .projCard::before {
@@ -20,7 +23,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 5px;
 }
 
 .pc1::before {
@@ -40,9 +43,9 @@
 }
 
 .projNum {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 3.5rem;
-  color: rgba(200, 230, 255, 0.06);
+  color: rgba(146, 144, 195, 0.14);
   position: absolute;
   top: 0.5rem;
   right: 1rem;
@@ -60,10 +63,10 @@
 }
 
 .projName {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.6px;
   margin-bottom: 0.4rem;
 }
 
@@ -82,17 +85,17 @@
 }
 
 .projTag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
-  padding: 0.2rem 0.6rem;
-  background: rgba(0, 255, 135, 0.12);
-  color: var(--c1);
-  border: 1px solid rgba(0, 255, 135, 0.3);
-  border-radius: 3px;
+  padding: 0.24rem 0.62rem;
+  background: rgba(83, 92, 145, 0.28);
+  color: var(--c5);
+  border: 1px solid rgba(146, 144, 195, 0.35);
+  border-radius: 999px;
 }
 
 .projLink {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.78rem;
   color: var(--c4);
   text-decoration: none;

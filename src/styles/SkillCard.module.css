@@ -1,33 +1,35 @@
 .skillCard {
-  border: 3px solid var(--ink);
-  border-radius: 10px;
+  border: 1px solid rgba(146, 144, 195, 0.4);
+  border-radius: 14px;
   padding: 1.25rem;
-  box-shadow: 4px 4px 0 rgba(56, 189, 248, 0.25);
-  background: var(--paper2);
-  transition: transform 0.15s;
+  box-shadow: 0 10px 24px rgba(3, 5, 18, 0.38);
+  background: linear-gradient(145deg, rgba(27, 26, 85, 0.95), rgba(7, 15, 43, 0.95));
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
 }
 
 .skillCard:hover {
-  transform: rotate(-1deg) scale(1.02);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(3, 5, 18, 0.48);
+  border-color: rgba(146, 144, 195, 0.66);
 }
 
 .sk1 {
-  background: #071e2e;
+  background: linear-gradient(145deg, #1b1a55, #0b1741);
   border-color: var(--c1);
 }
 
 .sk2 {
-  background: #071a2a;
+  background: linear-gradient(145deg, #1a205a, #111840);
   border-color: var(--c2);
 }
 
 .sk3 {
-  background: #071820;
+  background: linear-gradient(145deg, #161e57, #0e1538);
   border-color: var(--c4);
 }
 
 .sk4 {
-  background: #0c0f28;
+  background: linear-gradient(145deg, #151447, #070f2b);
   border-color: var(--c5);
 }
 
@@ -44,13 +46,13 @@
 }
 
 .skillCardTitle {
-  font-family: 'Oxanium', sans-serif;
-  font-size: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.08rem;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(126, 184, 255, 0.3);
+  border-bottom: 1px solid rgba(146, 144, 195, 0.32);
   color: var(--text);
   margin: 0;
 }
@@ -62,13 +64,13 @@
   font-size: 0.85rem;
   font-weight: 300;
   padding: 0.25rem 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   color: var(--text-muted);
   margin-bottom: 0.4rem;
 }
 
 .skillItem::before {
-  content: '▶';
+  content: '◆';
   font-size: 0.55rem;
   color: var(--c1);
   flex-shrink: 0;

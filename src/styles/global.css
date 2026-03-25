@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 *,
 *::before,
@@ -9,16 +9,20 @@
 }
 
 :root {
-  --c1: #00ff87;
-  --c2: #00c8e0;
-  --c3: #06ffa5;
-  --c4: #38bdf8;
-  --c5: #818cf8;
-  --ink: #7eb8ff;
-  --paper: #060d1a;
-  --paper2: #0d1f3c;
-  --text: #c8e6ff;
-  --text-muted: #7fa8d0;
+  --c1: #9290c3;
+  --c2: #535c91;
+  --c3: #1b1a55;
+  --c4: #7a82b7;
+  --c5: #b0b3df;
+  --ink: #c3c6eb;
+  --paper: #070f2b;
+  --paper2: #141544;
+  --text: #f6f7ff;
+  --text-muted: #d3d7f5;
+  --line: #535c91;
+  --content-max: 72rem;
+  --content-gutter: clamp(1rem, 3.2vw, 2.25rem);
+  --section-block: clamp(2.75rem, 7vw, 4.5rem);
 }
 
 html {
@@ -31,15 +35,27 @@ html {
 }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: var(--paper);
+  font-family: 'Sora', sans-serif;
+  background:
+    radial-gradient(circle at 10% -10%, rgba(146, 144, 195, 0.2), transparent 36%),
+    radial-gradient(circle at 86% 0%, rgba(83, 92, 145, 0.28), transparent 42%),
+    linear-gradient(180deg, #0d1638 0%, var(--paper) 55%, #0a1230 100%);
   color: var(--text);
   cursor: none;
   overflow-x: hidden;
+  min-width: 20rem;
+  padding-top: clamp(3.5rem, 10vw, 5rem);
 }
 
 svg {
   flex-shrink: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
 }
 
 /* custom cursor */
@@ -61,26 +77,6 @@ svg {
 #cursor.big {
   transform: translate(-50%, -50%) scale(3);
   background: var(--c4);
-}
-
-/* DIVIDER */
-.wiggly {
-  width: 100%;
-  height: 40px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--c1) 0,
-    var(--c1) 20px,
-    var(--paper) 20px,
-    var(--paper) 40px,
-    var(--c2) 40px,
-    var(--c2) 60px,
-    var(--paper) 60px,
-    var(--paper) 80px,
-    var(--c4) 80px,
-    var(--c4) 100px
-  );
-  opacity: 0.6;
 }
 
 /* reveal animation */

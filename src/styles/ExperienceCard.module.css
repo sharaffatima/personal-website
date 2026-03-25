@@ -18,11 +18,11 @@
   width: 16px;
   height: 16px;
   background: var(--c1);
-  border: 3px solid var(--paper);
+  border: 3px solid var(--paper2);
   border-radius: 50%;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 0 2px var(--c1);
+  box-shadow: 0 0 0 2px rgba(146, 144, 195, 0.55);
 }
 
 .line {
@@ -43,17 +43,17 @@
 
 .content {
   flex: 1;
-  background: var(--paper2);
-  border: 2px solid var(--ink);
-  border-radius: 12px;
+  background: linear-gradient(140deg, rgba(27, 26, 85, 0.96), rgba(7, 15, 43, 0.96));
+  border: 1px solid rgba(146, 144, 195, 0.38);
+  border-radius: 14px;
   padding: 1.5rem;
-  transition: all 0.15s;
+  transition: all 0.2s;
 }
 
 .content:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 6px 6px 0 rgba(0, 255, 135, 0.2);
-  border-color: var(--c1);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(3, 5, 18, 0.42);
+  border-color: rgba(146, 144, 195, 0.72);
 }
 
 .header {
@@ -65,7 +65,7 @@
 }
 
 .role {
-  font-family: 'Oxanium', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -81,12 +81,12 @@
 }
 
 .badge {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
   padding: 0.35rem 0.75rem;
-  background: rgba(0, 255, 135, 0.15);
-  color: var(--c1);
-  border: 1px solid var(--c1);
+  background: rgba(146, 144, 195, 0.18);
+  color: var(--c5);
+  border: 1px solid rgba(146, 144, 195, 0.5);
   border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -94,7 +94,7 @@
 }
 
 .period {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.85rem;
   color: var(--c4);
   margin: 0 0 0.5rem 0;
@@ -137,12 +137,12 @@
 }
 
 .tech {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
   padding: 0.3rem 0.7rem;
-  background: rgba(56, 189, 248, 0.1);
-  color: var(--c4);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(83, 92, 145, 0.22);
+  color: var(--c5);
+  border: 1px solid rgba(146, 144, 195, 0.35);
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
