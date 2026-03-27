@@ -9,7 +9,7 @@ export const projects = [
     fullDescription:
       'Backend system for pharmacy operations including RESTful APIs, database management, and business logic. Currently volunteering at SharafAI to bring healthcare technology to independent pharmacies.',
     tags: ['Django', 'PostgreSQL', 'Docker', 'REST APIs'],
-    link: 'https://github.com/SharafAI/pharmaciohttps://github.com/sharaffatima/pharmacio-backend',
+    link: 'https://github.com/sharaffatima/pharmacio-backend',
     cardClass: 'pc1',
     status: 'In Development'
   },
