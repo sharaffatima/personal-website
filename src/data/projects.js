@@ -59,21 +59,21 @@ export const projects = [
     },
   },
   {
-    id: 'openlab',
-    category: 'University group project',
-    title: 'OpenLab — Learning Analytics',
+    id: 'nerra',
+    category: 'Personal productivity app',
+    title: 'Nerra — Productivity Workspace',
     description:
-      'Contributed to an existing educational platform by implementing and improving features related to open learning analytics, collaboration, and educational insights.',
-    tags: ['React', 'Spring Boot', 'MongoDB', 'JWT'],
+      'A productivity app that brings tasks, notes, and reminders together in one workspace, with focus tools, browser notifications, and optional voice capture.',
+    tags: ['Django', 'PostgreSQL', 'React', 'TypeScript'],
     image: {
-      src: img('OpenLab Learning Analytics Dashboard.png'),
-      alt: 'OpenLab learning analytics interface with data visualizations',
+      src: img('Nerra Productivity Workspace Hero Shot.png'),
+      alt: 'Nerra productivity workspace featuring a dashboard, task management, focus timer, and voice capture',
       width: 1600,
       height: 1000,
     },
     link: {
-      href: 'https://github.com/sharaffatima/openlap-lab',
-      label: 'View OpenLab on GitHub',
+      href: 'https://github.com/sharaffatima/Nerra',
+      label: 'View Nerra on GitHub',
     },
   },
 ];
