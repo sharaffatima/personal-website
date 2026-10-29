@@ -1,141 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+/* ==========================================================================
+   Design tokens — edit here to refine the whole site
+   ========================================================================== */
+:root {
+  /* Colour */
+  --color-bg: #fafaf7;
+  --color-text: #20231f;
+  /* #737770 only reaches 4.4:1 on the page background; this slightly darker
+     value keeps small text above WCAG AA (4.97:1 on bg, 4.62:1 on subtle). */
+  --color-text-muted: #6a6e67;
+  --color-accent: #365b48;
+  --color-accent-hover: #2b4a3a;
+  --color-surface: #ffffff;
+  --color-border: #e7e7e0;
+  --color-surface-subtle: #f1f2ec;
+  --color-accent-muted: #eaf0e9;
 
+  /* Typography */
+  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Spacing scale (4 / 8 px based) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Shape & motion */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-frame: 12px;
+  --transition: 200ms ease;
+
+  /* Layout */
+  --container-max: 1200px;
+  --gutter: 20px;
+  --header-height: 64px;
+  --section-space: clamp(72px, 10vw, 128px);
+}
+
+@media (min-width: 640px) {
+  :root { --gutter: 28px; }
+}
+@media (min-width: 900px) {
+  :root { --gutter: 48px; }
+}
+@media (min-width: 1200px) {
+  :root { --gutter: 64px; }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --c1: #9290c3;
-  --c2: #535c91;
-  --c3: #1b1a55;
-  --c4: #7a82b7;
-  --c5: #b0b3df;
-  --ink: #c3c6eb;
-  --paper: #070f2b;
-  --paper2: #141544;
-  --text: #f6f7ff;
-  --text-muted: #d3d7f5;
-  --line: #535c91;
-  --content-max: 72rem;
-  --content-gutter: clamp(1rem, 3.2vw, 2.25rem);
-  --section-block: clamp(2.75rem, 7vw, 4.5rem);
 }
 
 html {
+  color-scheme: light;
   scroll-behavior: smooth;
-}
-
-#root {
-  min-height: 100vh;
-  overflow-x: hidden;
+  scroll-padding-top: calc(var(--header-height) + var(--space-5));
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Sora', sans-serif;
-  background:
-    radial-gradient(circle at 10% -10%, rgba(146, 144, 195, 0.2), transparent 36%),
-    radial-gradient(circle at 86% 0%, rgba(83, 92, 145, 0.28), transparent 42%),
-    linear-gradient(180deg, #0d1638 0%, var(--paper) 55%, #0a1230 100%);
-  color: var(--text);
-  cursor: none;
-  overflow-x: hidden;
-  min-width: 20rem;
-  padding-top: clamp(3.5rem, 10vw, 5rem);
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-svg {
-  flex-shrink: 0;
+h1, h2, h3, h4, p, ul, ol, figure, dl, dd {
+  margin: 0;
 }
 
-img,
-video,
-canvas,
-svg {
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  display: block;
   max-width: 100%;
 }
 
-/* custom cursor */
-#cursor {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--c1);
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-accent-muted);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
   position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: background 0.15s, transform 0.1s;
-  mix-blend-mode: screen;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
 }
 
-#cursor.big {
-  transform: translate(-50%, -50%) scale(3);
-  background: var(--c4);
-}
-
-/* reveal animation */
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.97);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.pop {
-  animation: popIn 0.5s ease both;
-}
-
-.pop1 {
-  animation-delay: 0.1s;
-}
-
-.pop2 {
-  animation-delay: 0.2s;
-}
-
-.pop3 {
-  animation-delay: 0.3s;
-}
-
-.pop4 {
-  animation-delay: 0.4s;
-}
-
-/* SPINNING STAR decoration */
-.star {
-  display: inline-block;
-  animation: spin 8s linear infinite;
-  font-size: 1.5rem;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 620px) {
-  .hero-name {
-    font-size: 3.5rem;
-  }
-}
-
-@media (hover: none), (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
-
-  #cursor {
-    display: none;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

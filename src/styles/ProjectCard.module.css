@@ -1,131 +1,114 @@
-.projCard {
-  background:
-    radial-gradient(circle at 92% 8%, rgba(146, 144, 195, 0.18), transparent 34%),
-    linear-gradient(145deg, rgba(27, 26, 85, 0.96), rgba(7, 15, 43, 0.95));
-  border: 1px solid rgba(146, 144, 195, 0.36);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 12px 26px rgba(3, 5, 18, 0.42);
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  position: relative;
+.card {
+  position: relative; /* anchors the stretched link */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.frame {
+  aspect-ratio: 16 / 10;
   overflow: hidden;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-frame);
 }
 
-.projCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgba(3, 5, 18, 0.5);
-  border-color: rgba(146, 144, 195, 0.62);
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 250ms ease;
 }
 
-.projCard::before {
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.meta > :first-child {
+  color: var(--color-accent);
+}
+
+.rule {
+  width: 24px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.titleLink {
+  text-decoration: none;
+  transition: color var(--transition);
+}
+/* Makes the whole card one keyboard- and touch-friendly link target */
+.titleLink::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
+  inset: 0;
+}
+.titleLink:focus-visible {
+  outline: none;
+}
+.card:has(.titleLink:focus-visible) .frame {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
-.pc1::before {
-  background: var(--c1);
+.description {
+  color: var(--color-text-muted);
+  max-width: 56ch;
 }
 
-.pc2::before {
-  background: var(--c3);
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: auto; /* keeps tags aligned at the bottom across uneven text */
+  padding-top: var(--space-3);
 }
 
-.pc3::before {
-  background: var(--c2);
-}
-
-.pc4::before {
-  background: var(--c5);
-}
-
-.projNum {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3.5rem;
-  color: rgba(146, 144, 195, 0.14);
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  line-height: 1;
-  user-select: none;
-}
-
-.projIconWrapper {
-  margin-bottom: 0.75rem;
-  color: var(--c1);
-}
-
-.projIcon {
-  opacity: 0.8;
-}
-
-.projName {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  margin-bottom: 0.4rem;
-}
-
-.projDesc {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  margin-bottom: 1rem;
-}
-
-.projTags {
+.tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.75rem;
+  gap: var(--space-2);
+  margin: 0;
 }
 
-.projTag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  padding: 0.24rem 0.62rem;
-  background: rgba(83, 92, 145, 0.28);
-  color: var(--c5);
-  border: 1px solid rgba(146, 144, 195, 0.35);
-  border-radius: 999px;
+.arrow {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  transition: transform var(--transition);
 }
 
-.projLink {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem;
-  color: var(--c4);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: color 0.15s;
+.card:hover .image {
+  transform: scale(1.03);
 }
-
-.projLink:hover {
-  color: var(--c1);
+.card:hover .titleLink,
+.card:has(.titleLink:focus-visible) .titleLink {
+  color: var(--color-accent);
 }
-
-@media (max-width: 480px) {
-  .projCard {
-    padding: 1.2rem;
-  }
-
-  .projNum {
-    font-size: 2.7rem;
-    right: 0.75rem;
-  }
-
-  .projName {
-    font-size: 1.15rem;
-    padding-right: 2rem;
-  }
-
-  .projDesc {
-    font-size: 0.84rem;
-  }
+.card:hover .arrow,
+.card:has(.titleLink:focus-visible) .arrow {
+  transform: translate(3px, -3px);
 }

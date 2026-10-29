@@ -1,0 +1,2444 @@
+diff --git a/index.html b/index.html
+index d38ded2..fd6331e 100644
+--- a/index.html
++++ b/index.html
+@@ -2,9 +2,21 @@
+ <html lang="en">
+   <head>
+     <meta charset="UTF-8" />
+-    <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
++    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>personal-website</title>
++    <meta name="color-scheme" content="light" />
++    <meta name="theme-color" content="#FAFAF7" />
++    <meta
++      name="description"
++      content="Fatima Sharaf — software engineer building useful, reliable applications with clean architecture and considered interfaces."
++    />
++    <title>Fatima Sharaf — Software engineer</title>
++    <link rel="preconnect" href="https://fonts.googleapis.com" />
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
++    <link
++      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@500;600;700&display=swap"
++      rel="stylesheet"
++    />
+   </head>
+   <body>
+     <div id="root"></div>
+diff --git a/src/App.jsx b/src/App.jsx
+index 16c6ffb..c4258bb 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -1,33 +1,24 @@
+-import styles from './App.module.css';
+ import About from './components/About';
+ import Contact from './components/Contact';
+-import Experience from './components/Experience';
+ import Footer from './components/Footer';
+ import Hero from './components/Hero';
+-import Interests from './components/Interests';
+ import Navigation from './components/Navigation';
+ import Projects from './components/Projects';
+-import Skills from './components/Skills';
+-import { useCursor } from './hooks/useCursor';
+-import './styles/global.css';
+-
+-function App() {
+-  const cursorRef = useCursor();
++import Tools from './components/Tools';
+ 
++export default function App() {
+   return (
+     <>
+-      <div id="cursor" ref={cursorRef} className={styles.cursor}></div>
++      <a className="skip-link" href="#work">Skip to content</a>
+       <Navigation />
+-      <Hero />
+-      <Projects />
+-      <Experience />
+-      <About />
+-      <Skills />
+-      <Interests />
+-      <Contact />
++      <main>
++        <Hero />
++        <Projects />
++        <Tools />
++        <About />
++        <Contact />
++      </main>
+       <Footer />
+     </>
+   );
+ }
+-
+-export default App;
+diff --git a/src/App.module.css b/src/App.module.css
+deleted file mode 100644
+index 0e55836..0000000
+--- a/src/App.module.css
++++ /dev/null
+@@ -1,19 +0,0 @@
+-.cursor {
+-  width: 18px;
+-  height: 18px;
+-  border-radius: 50%;
+-  background: var(--c1);
+-  position: fixed;
+-  top: 0;
+-  left: 0;
+-  pointer-events: none;
+-  z-index: 9999;
+-  transform: translate(-50%, -50%);
+-  transition: background 0.15s, transform 0.1s;
+-  mix-blend-mode: screen;
+-}
+-
+-.cursor.big {
+-  transform: translate(-50%, -50%) scale(3);
+-  background: var(--c4);
+-}
+diff --git a/src/assets/react.svg b/src/assets/react.svg
+deleted file mode 100644
+index 6c87de9..0000000
+--- a/src/assets/react.svg
++++ /dev/null
+@@ -1 +0,0 @@
+-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="35.93" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 228"><path fill="#00D8FF" d="M210.483 73.824a171.49 171.49 0 0 0-8.24-2.597c.465-1.9.893-3.777 1.273-5.621c6.238-30.281 2.16-54.676-11.769-62.708c-13.355-7.7-35.196.329-57.254 19.526a171.23 171.23 0 0 0-6.375 5.848a155.866 155.866 0 0 0-4.241-3.917C100.759 3.829 77.587-4.822 63.673 3.233C50.33 10.957 46.379 33.89 51.995 62.588a170.974 170.974 0 0 0 1.892 8.48c-3.28.932-6.445 1.924-9.474 2.98C17.309 83.498 0 98.307 0 113.668c0 15.865 18.582 31.778 46.812 41.427a145.52 145.52 0 0 0 6.921 2.165a167.467 167.467 0 0 0-2.01 9.138c-5.354 28.2-1.173 50.591 12.134 58.266c13.744 7.926 36.812-.22 59.273-19.855a145.567 145.567 0 0 0 5.342-4.923a168.064 168.064 0 0 0 6.92 6.314c21.758 18.722 43.246 26.282 56.54 18.586c13.731-7.949 18.194-32.003 12.4-61.268a145.016 145.016 0 0 0-1.535-6.842c1.62-.48 3.21-.974 4.76-1.488c29.348-9.723 48.443-25.443 48.443-41.52c0-15.417-17.868-30.326-45.517-39.844Zm-6.365 70.984c-1.4.463-2.836.91-4.3 1.345c-3.24-10.257-7.612-21.163-12.963-32.432c5.106-11 9.31-21.767 12.459-31.957c2.619.758 5.16 1.557 7.61 2.4c23.69 8.156 38.14 20.213 38.14 29.504c0 9.896-15.606 22.743-40.946 31.14Zm-10.514 20.834c2.562 12.94 2.927 24.64 1.23 33.787c-1.524 8.219-4.59 13.698-8.382 15.893c-8.067 4.67-25.32-1.4-43.927-17.412a156.726 156.726 0 0 1-6.437-5.87c7.214-7.889 14.423-17.06 21.459-27.246c12.376-1.098 24.068-2.894 34.671-5.345a134.17 134.17 0 0 1 1.386 6.193ZM87.276 214.515c-7.882 2.783-14.16 2.863-17.955.675c-8.075-4.657-11.432-22.636-6.853-46.752a156.923 156.923 0 0 1 1.869-8.499c10.486 2.32 22.093 3.988 34.498 4.994c7.084 9.967 14.501 19.128 21.976 27.15a134.668 134.668 0 0 1-4.877 4.492c-9.933 8.682-19.886 14.842-28.658 17.94ZM50.35 144.747c-12.483-4.267-22.792-9.812-29.858-15.863c-6.35-5.437-9.555-10.836-9.555-15.216c0-9.322 13.897-21.212 37.076-29.293c2.813-.98 5.757-1.905 8.812-2.773c3.204 10.42 7.406 21.315 12.477 32.332c-5.137 11.18-9.399 22.249-12.634 32.792a134.718 134.718 0 0 1-6.318-1.979Zm12.378-84.26c-4.811-24.587-1.616-43.134 6.425-47.789c8.564-4.958 27.502 2.111 47.463 19.835a144.318 144.318 0 0 1 3.841 3.545c-7.438 7.987-14.787 17.08-21.808 26.988c-12.04 1.116-23.565 2.908-34.161 5.309a160.342 160.342 0 0 1-1.76-7.887Zm110.427 27.268a347.8 347.8 0 0 0-7.785-12.803c8.168 1.033 15.994 2.404 23.343 4.08c-2.206 7.072-4.956 14.465-8.193 22.045a381.151 381.151 0 0 0-7.365-13.322Zm-45.032-43.861c5.044 5.465 10.096 11.566 15.065 18.186a322.04 322.04 0 0 0-30.257-.006c4.974-6.559 10.069-12.652 15.192-18.18ZM82.802 87.83a323.167 323.167 0 0 0-7.227 13.238c-3.184-7.553-5.909-14.98-8.134-22.152c7.304-1.634 15.093-2.97 23.209-3.984a321.524 321.524 0 0 0-7.848 12.897Zm8.081 65.352c-8.385-.936-16.291-2.203-23.593-3.793c2.26-7.3 5.045-14.885 8.298-22.6a321.187 321.187 0 0 0 7.257 13.246c2.594 4.48 5.28 8.868 8.038 13.147Zm37.542 31.03c-5.184-5.592-10.354-11.779-15.403-18.433c4.902.192 9.899.29 14.978.29c5.218 0 10.376-.117 15.453-.343c-4.985 6.774-10.018 12.97-15.028 18.486Zm52.198-57.817c3.422 7.8 6.306 15.345 8.596 22.52c-7.422 1.694-15.436 3.058-23.88 4.071a382.417 382.417 0 0 0 7.859-13.026a347.403 347.403 0 0 0 7.425-13.565Zm-16.898 8.101a358.557 358.557 0 0 1-12.281 19.815a329.4 329.4 0 0 1-23.444.823c-7.967 0-15.716-.248-23.178-.732a310.202 310.202 0 0 1-12.513-19.846h.001a307.41 307.41 0 0 1-10.923-20.627a310.278 310.278 0 0 1 10.89-20.637l-.001.001a307.318 307.318 0 0 1 12.413-19.761c7.613-.576 15.42-.876 23.31-.876H128c7.926 0 15.743.303 23.354.883a329.357 329.357 0 0 1 12.335 19.695a358.489 358.489 0 0 1 11.036 20.54a329.472 329.472 0 0 1-11 20.722Zm22.56-122.124c8.572 4.944 11.906 24.881 6.52 51.026c-.344 1.668-.73 3.367-1.15 5.09c-10.622-2.452-22.155-4.275-34.23-5.408c-7.034-10.017-14.323-19.124-21.64-27.008a160.789 160.789 0 0 1 5.888-5.4c18.9-16.447 36.564-22.941 44.612-18.3ZM128 90.808c12.625 0 22.86 10.235 22.86 22.86s-10.235 22.86-22.86 22.86s-22.86-10.235-22.86-22.86s10.235-22.86 22.86-22.86Z"></path></svg>
+\ No newline at end of file
+diff --git a/src/assets/vite.svg b/src/assets/vite.svg
+deleted file mode 100644
+index 5101b67..0000000
+--- a/src/assets/vite.svg
++++ /dev/null
+@@ -1 +0,0 @@
+-<svg xmlns="http://www.w3.org/2000/svg" width="77" height="47" fill="none" aria-labelledby="vite-logo-title" viewBox="0 0 77 47"><title id="vite-logo-title">Vite</title><style>.parenthesis{fill:#000}@media (prefers-color-scheme:dark){.parenthesis{fill:#fff}}</style><path fill="#9135ff" d="M40.151 45.71c-.663.844-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.493c-.92 0-1.457-1.04-.92-1.788l7.479-10.471c1.07-1.498 0-3.578-1.842-3.578H15.443c-.92 0-1.456-1.04-.92-1.788l9.696-13.576c.213-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.472c-1.07 1.497 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.087.89 1.83L40.153 45.712z"/><mask id="a" width="48" height="47" x="14" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#000" d="M40.047 45.71c-.663.843-2.02.374-2.02-.699V34.708a2.26 2.26 0 0 0-2.262-2.262H24.389c-.92 0-1.457-1.04-.92-1.788l7.479-10.472c1.07-1.497 0-3.578-1.842-3.578H15.34c-.92 0-1.456-1.04-.92-1.788l9.696-13.575c.213-.297.556-.474.92-.474H53.93c.92 0 1.456 1.04.92 1.788L47.37 13.03c-1.07 1.498 0 3.578 1.842 3.578h11.376c.944 0 1.474 1.088.89 1.831L40.049 45.712z"/></mask><g mask="url(#a)"><g filter="url(#b)"><ellipse cx="5.508" cy="14.704" fill="#eee6ff" rx="5.508" ry="14.704" transform="rotate(269.814 20.96 11.29)scale(-1 1)"/></g><g filter="url(#c)"><ellipse cx="10.399" cy="29.851" fill="#eee6ff" rx="10.399" ry="29.851" transform="rotate(89.814 -16.902 -8.275)scale(1 -1)"/></g><g filter="url(#d)"><ellipse cx="5.508" cy="30.487" fill="#8900ff" rx="5.508" ry="30.487" transform="rotate(89.814 -19.197 -7.127)scale(1 -1)"/></g><g filter="url(#e)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.928 4.177)scale(1 -1)"/></g><g filter="url(#f)"><ellipse cx="5.508" cy="30.599" fill="#8900ff" rx="5.508" ry="30.599" transform="rotate(89.814 -25.738 5.52)scale(1 -1)"/></g><g filter="url(#g)"><ellipse cx="14.072" cy="22.078" fill="#eee6ff" rx="14.072" ry="22.078" transform="rotate(93.35 31.245 55.578)scale(-1 1)"/></g><g filter="url(#h)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"/></g><g filter="url(#i)"><ellipse cx="3.47" cy="21.501" fill="#8900ff" rx="3.47" ry="21.501" transform="rotate(89.009 35.419 55.202)scale(-1 1)"/></g><g filter="url(#j)"><ellipse cx="14.592" cy="9.743" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(39.51 14.592 9.743)"/></g><g filter="url(#k)"><ellipse cx="61.728" cy="-5.321" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 61.728 -5.32)"/></g><g filter="url(#l)"><ellipse cx="55.618" cy="7.104" fill="#00c2ff" rx="5.971" ry="9.665" transform="rotate(37.892 55.618 7.104)"/></g><g filter="url(#m)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"/></g><g filter="url(#n)"><ellipse cx="12.326" cy="39.103" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 12.326 39.103)"/></g><g filter="url(#o)"><ellipse cx="49.857" cy="30.678" fill="#8900ff" rx="4.407" ry="29.108" transform="rotate(37.892 49.857 30.678)"/></g><g filter="url(#p)"><ellipse cx="52.623" cy="33.171" fill="#00c2ff" rx="5.971" ry="15.297" transform="rotate(37.892 52.623 33.17)"/></g></g><path d="M6.919 0c-9.198 13.166-9.252 33.575 0 46.789h6.215c-9.25-13.214-9.196-33.623 0-46.789zm62.424 0h-6.215c9.198 13.166 9.252 33.575 0 46.789h6.215c9.25-13.214 9.196-33.623 0-46.789" class="parenthesis"/><defs><filter id="b" width="60.045" height="41.654" x="-5.564" y="16.92" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="c" width="90.34" height="51.437" x="-40.407" y="-6.762" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="d" width="79.355" height="29.4" x="-35.435" y="2.801" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="e" width="79.579" height="29.4" x="-30.84" y="20.8" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="f" width="79.579" height="29.4" x="-29.307" y="21.949" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="g" width="74.749" height="58.852" x="29.961" y="-17.13" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="7.659"/></filter><filter id="h" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="i" width="61.377" height="25.362" x="37.754" y="3.055" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="j" width="56.045" height="63.649" x="-13.43" y="-22.082" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="k" width="54.814" height="64.646" x="34.321" y="-37.644" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="l" width="33.541" height="35.313" x="38.847" y="-10.552" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="m" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="n" width="54.814" height="64.646" x="-15.081" y="6.78" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="o" width="54.814" height="64.646" x="22.45" y="-1.645" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter><filter id="p" width="39.409" height="43.623" x="32.919" y="11.36" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17286" stdDeviation="4.596"/></filter></defs></svg>
+diff --git a/src/components/About.jsx b/src/components/About.jsx
+index 0535049..d286715 100644
+--- a/src/components/About.jsx
++++ b/src/components/About.jsx
+@@ -1,40 +1,25 @@
+-import { Code, Globe, GraduationCap, Lock, Sparkles, Wrench } from 'lucide-react';
+ import styles from '../styles/About.module.css';
+ 
+ export default function About() {
+-  const funFacts = [
+-    { icon: GraduationCap, text: 'Graduating in 2026 (Computer Science)' },
+-    { icon: Code, text: 'Volunteering at SharafAI to help build meaningful projects' },
+-    { icon: Lock, text: '1+ year experience in critical infrastructure & security' },
+-    { icon: Wrench, text: 'Passionate about system design & backend architecture' },
+-    { icon: Globe, text: 'Open to full-time roles & challenging projects' }
+-  ];
+-
+   return (
+-    <>
+-      <div className={styles.aboutStrip}>
+-        <div>
+-          <h3>
+-            A bit about me <Sparkles size={24} style={{ display: 'inline-block', marginLeft: '0.5rem', verticalAlign: 'middle' }} />
+-          </h3>
++    <section id="about" className={styles.section} aria-labelledby="about-title">
++      <div className={`container ${styles.grid}`}>
++        <h2 id="about-title" className={styles.title}>
++          A little about me
++        </h2>
++        <div className={styles.text}>
++          <p>
++            I&rsquo;m a computer science student graduating in 2026. I like working across the whole
++            path from data model to interface: designing APIs and schemas, then making the screens
++            built on top of them clear and dependable.
++          </p>
+           <p>
+-            I'm a backend engineer graduating in 2026 with practical experience building production systems.
+-            I've worked on critical infrastructure in IT/OT security and am now volunteering at SharafAI, a Syrian non-profit organization.
+-            I focus on clean code, system design, and creating solutions that make a real impact.
++            Alongside my studies I&rsquo;ve worked in an IT/OT environment for critical infrastructure
++            and volunteer as a backend developer at SharafAI. I care about maintainable systems,
++            practical problem-solving, and interfaces that are easy to use.
+           </p>
+         </div>
+-        <ul className={styles.funFacts}>
+-          {funFacts.map((fact, idx) => {
+-            const IconComponent = fact.icon;
+-            return (
+-              <li key={idx}>
+-                <IconComponent size={18} className={styles.factIcon} />
+-                {fact.text}
+-              </li>
+-            );
+-          })}
+-        </ul>
+       </div>
+-    </>
++    </section>
+   );
+ }
+diff --git a/src/components/BrandIcons.jsx b/src/components/BrandIcons.jsx
+new file mode 100644
+index 0000000..f320314
+--- /dev/null
++++ b/src/components/BrandIcons.jsx
+@@ -0,0 +1,17 @@
++// Lucide no longer ships brand icons, so these two use simple monochrome glyphs
++// sized and coloured like the Lucide interface icons (currentColor).
++export function GithubIcon({ size = 20, ...props }) {
++  return (
++    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
++      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
++    </svg>
++  );
++}
++
++export function LinkedinIcon({ size = 20, ...props }) {
++  return (
++    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
++      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z" />
++    </svg>
++  );
++}
+diff --git a/src/components/Button.jsx b/src/components/Button.jsx
+new file mode 100644
+index 0000000..aed65d0
+--- /dev/null
++++ b/src/components/Button.jsx
+@@ -0,0 +1,15 @@
++import styles from '../styles/Button.module.css';
++
++/**
++ * variant "primary": filled forest-green button
++ * variant "link":    minimal text link, usually with a trailing icon
++ */
++export default function Button({ href, variant = 'primary', icon, external = false, children, ...rest }) {
++  const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
++  return (
++    <a className={`${styles.button} ${styles[variant]}`} href={href} {...externalProps} {...rest}>
++      <span>{children}</span>
++      {icon ? <span className={styles.icon} aria-hidden="true">{icon}</span> : null}
++    </a>
++  );
++}
+diff --git a/src/components/Contact.jsx b/src/components/Contact.jsx
+index 33f6938..508d525 100644
+--- a/src/components/Contact.jsx
++++ b/src/components/Contact.jsx
+@@ -1,38 +1,41 @@
+-import { Rocket } from 'lucide-react';
++import { ArrowUpRight, Mail } from 'lucide-react';
++import { site } from '../data/site';
+ import styles from '../styles/Contact.module.css';
++import { GithubIcon, LinkedinIcon } from './BrandIcons';
+ 
+ export default function Contact() {
+-  const contactLinks = [
+-    {
+-      label: 'Email',
+-      href: 'mailto:sharaffatima000@gmail.com'
+-    },
+-    {
+-      label: 'GitHub',
+-      href: 'https://github.com/sharaffatima'
+-    },
+-    {
+-      label: 'LinkedIn',
+-      href: 'https://www.linkedin.com/in/fatima-sharaf-417480340/'
+-    }
+-  ];
+-
+   return (
+-    <section id="contact" className={styles.section}>
+-      <div className={styles.contactBlob}>
+-        <h3><Rocket size={24} style={{ display: 'inline-block', marginRight: '0.5rem', verticalAlign: 'middle' }} />Let's Connect</h3>
+-        <p>
+-          I'm interested in roles where I can contribute to meaningful projects and grow as a backend engineer.
+-          Whether you're building healthcare tech, scalable systems, or solving complex infrastructure problems—
+-          let's talk. I'm available for full-time positions, freelance projects, and collaborations starting 2026.
++    <section id="contact" className={styles.section} aria-labelledby="contact-title">
++      <div className="container">
++        <h2 id="contact-title" className={styles.title}>
++          Have a project in mind?
++        </h2>
++        <p className={styles.text}>
++          I&rsquo;m always interested in discussing thoughtful software projects and new ideas.
+         </p>
+-        <div className={styles.contactLinks}>
+-          {contactLinks.map((link, idx) => (
+-            <a key={idx} className={styles.contactBtn} href={link.href} target="_blank" rel="noopener noreferrer">
+-              {link.label}
++
++        <a className={styles.email} href={`mailto:${site.email}`}>
++          <Mail size={20} aria-hidden="true" />
++          <span>{site.email}</span>
++          <ArrowUpRight className={styles.arrow} size={20} aria-hidden="true" />
++        </a>
++
++        <ul role="list" className={styles.links}>
++          <li>
++            <a href={site.github} target="_blank" rel="noopener noreferrer" className={styles.link}>
++              <GithubIcon size={18} />
++              GitHub
++              <span className="visually-hidden"> (opens in a new tab)</span>
++            </a>
++          </li>
++          <li>
++            <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
++              <LinkedinIcon size={18} />
++              LinkedIn
++              <span className="visually-hidden"> (opens in a new tab)</span>
+             </a>
+-          ))}
+-        </div>
++          </li>
++        </ul>
+       </div>
+     </section>
+   );
+diff --git a/src/components/Footer.jsx b/src/components/Footer.jsx
+index fb075d9..edc622c 100644
+--- a/src/components/Footer.jsx
++++ b/src/components/Footer.jsx
+@@ -1,11 +1,21 @@
+-import { Heart, Sparkles } from 'lucide-react';
++import { site } from '../data/site';
+ import styles from '../styles/Footer.module.css';
++import { GithubIcon } from './BrandIcons';
+ 
+ export default function Footer() {
+   return (
+     <footer className={styles.footer}>
+-      made with <Heart size={16} style={{ display: 'inline-block', marginLeft: '0.3rem', marginRight: '0.3rem', verticalAlign: 'middle', fill: 'currentColor' }} /> by fatima sharaf · 2026 ·
+-      <span className={styles.star}><Sparkles size={16} style={{ display: 'inline-block', verticalAlign: 'middle' }} /></span>
++      <div className={`container ${styles.inner}`}>
++        <p>
++          &copy; {new Date().getFullYear()} {site.name}
++        </p>
++        <p className={styles.detail}>Built with React &amp; Vite</p>
++        <a className={styles.link} href={site.github} target="_blank" rel="noopener noreferrer">
++          <GithubIcon size={16} />
++          GitHub
++          <span className="visually-hidden"> (opens in a new tab)</span>
++        </a>
++      </div>
+     </footer>
+   );
+ }
+diff --git a/src/components/Hero.jsx b/src/components/Hero.jsx
+index 043a792..c5baa5b 100644
+--- a/src/components/Hero.jsx
++++ b/src/components/Hero.jsx
+@@ -1,46 +1,30 @@
+-import { ArrowRight, Rocket, Zap } from 'lucide-react';
++import { ArrowRight } from 'lucide-react';
++import { site } from '../data/site';
+ import styles from '../styles/Hero.module.css';
++import Button from './Button';
+ 
+ export default function Hero() {
+   return (
+-    <div className={styles.hero}>
+-      <div className={`${styles.heroSup} pop pop1`}>
+-        <Zap size={18} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+-        Open to opportunities · Backend Engineer · Always learing
++    <section id="top" className={styles.hero} aria-labelledby="hero-title">
++      <div className={`container ${styles.inner}`}>
++        <p className={styles.eyebrow}>
++          <span className={styles.dot} aria-hidden="true" />
++          {site.name} — Software engineer
++        </p>
++        <h1 id="hero-title" className={styles.title}>
++          Building thoughtful software, from complex systems to polished experiences.
++        </h1>
++        <p className={styles.text}>
++          I&rsquo;m a software engineer focused on building useful, reliable applications with clean
++          architecture and considered interfaces.
++        </p>
++        <div className={styles.actions}>
++          <Button href="#work">Explore my work</Button>
++          <Button href="#contact" variant="link" icon={<ArrowRight size={16} />}>
++            Get in touch
++          </Button>
++        </div>
+       </div>
+-      <h1 className={`${styles.heroName} pop pop2`}>
+-        <span className={styles.fillPink}>FATIMA</span>
+-        <br />
+-        <span className={styles.stroke}>SHARAF</span>
+-      </h1>
+-      <p className={`${styles.heroRole} pop pop3`}>
+-        <span style={{ fontFamily: '"IBM Plex Mono", monospace' }}>Backend engineer & System Designer</span>
+-        <span className={styles.cursorBlink}></span>
+-      </p>
+-      <p className={`${styles.heroDesc} pop pop3`}>
+-        I build scalable backend systems and robust APIs. Experienced with Django, PostgreSQL, and Docker
+-        in production environments. Passionate about clean architecture, system design, and solving real-world problems
+-        through technology. Currently volunteering at SharafAI working on real-world projects.
+-      </p>
+-      <div className={`${styles.stickerRow} pop pop3`}>
+-        <span className={`${styles.sticker} ${styles.s1}`}>Python</span>
+-        <span className={`${styles.sticker} ${styles.s2}`}>Django</span>
+-        <span className={`${styles.sticker} ${styles.s3}`}>PostgreSQL</span>
+-        <span className={`${styles.sticker} ${styles.s4}`}>Docker</span>
+-        <span className={`${styles.sticker} ${styles.s5}`}>REST APIs</span>
+-        <span className={`${styles.sticker} ${styles.s6}`}>Git / GitHub</span>
+-        <span className={`${styles.sticker} ${styles.s1}`}>Linux</span>
+-      </div>
+-      <div className={`${styles.heroCtas} pop pop4`}>
+-        <a className={`${styles.btn} ${styles.btnMain}`} href="#projects">
+-          <Rocket size={18} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+-          See my work
+-        </a>
+-        <a className={`${styles.btn} ${styles.btnGhost}`} href="#contact">
+-          Let's talk
+-          <ArrowRight size={18} style={{ display: 'inline-block', marginLeft: '0.5rem' }} />
+-        </a>
+-      </div>
+-    </div>
++    </section>
+   );
+ }
+diff --git a/src/components/Navigation.jsx b/src/components/Navigation.jsx
+index eb96ed8..b4e1754 100644
+--- a/src/components/Navigation.jsx
++++ b/src/components/Navigation.jsx
+@@ -1,46 +1,67 @@
+ import { Menu, X } from 'lucide-react';
+-import { useState } from 'react';
++import { useEffect, useState } from 'react';
++import { site } from '../data/site';
+ import styles from '../styles/Navigation.module.css';
++import { GithubIcon } from './BrandIcons';
+ 
+-export default function Navigation() {
+-  const [isOpen, setIsOpen] = useState(false);
++const links = [
++  { href: '#work', label: 'Work' },
++  { href: '#about', label: 'About' },
++  { href: '#contact', label: 'Contact' },
++];
+ 
+-  function toggleMenu() {
+-    setIsOpen((open) => !open);
+-  }
++export default function Navigation() {
++  const [open, setOpen] = useState(false);
+ 
+-  function closeMenu() {
+-    setIsOpen(false);
+-  }
++  useEffect(() => {
++    if (!open) return undefined;
++    const onKeyDown = (e) => e.key === 'Escape' && setOpen(false);
++    document.addEventListener('keydown', onKeyDown);
++    return () => document.removeEventListener('keydown', onKeyDown);
++  }, [open]);
+ 
+   return (
+-    <nav className={styles.nav}>
+-      <a href="#" className={styles.logo}>
+-        FATIMA.DEV
+-      </a>
+-      <button
+-        type="button"
+-        className={styles.menuButton}
+-        aria-expanded={isOpen}
+-        aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+-        onClick={toggleMenu}
+-      >
+-        {isOpen ? <X size={22} /> : <Menu size={22} />}
+-      </button>
+-      <ul className={`${styles.navLinks} ${isOpen ? styles.navLinksOpen : ''}`}>
+-        <li>
+-          <a href="#projects" onClick={closeMenu}>Projects</a>
+-        </li>
+-        <li>
+-          <a href="#experience" onClick={closeMenu}>Experience</a>
+-        </li>
+-        <li>
+-          <a href="#skills" onClick={closeMenu}>Skills</a>
+-        </li>
+-        <li>
+-          <a href="#contact" onClick={closeMenu}>Contact</a>
+-        </li>
+-      </ul>
+-    </nav>
++    <header className={styles.header}>
++      <div className={`container ${styles.bar}`}>
++        <a href="#top" className={styles.wordmark} onClick={() => setOpen(false)}>
++          {site.name}
++        </a>
++
++        <button
++          type="button"
++          className={styles.toggle}
++          aria-expanded={open}
++          aria-controls="site-nav"
++          onClick={() => setOpen((v) => !v)}
++        >
++          <span className="visually-hidden">{open ? 'Close menu' : 'Open menu'}</span>
++          {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
++        </button>
++
++        <nav id="site-nav" aria-label="Primary" className={`${styles.nav} ${open ? styles.navOpen : ''}`}>
++          <ul role="list" className={styles.list}>
++            {links.map((link) => (
++              <li key={link.href}>
++                <a href={link.href} className={styles.link} onClick={() => setOpen(false)}>
++                  {link.label}
++                </a>
++              </li>
++            ))}
++            <li>
++              <a
++                href={site.github}
++                className={`${styles.link} ${styles.github}`}
++                target="_blank"
++                rel="noopener noreferrer"
++              >
++                <GithubIcon size={20} />
++                <span className="visually-hidden">GitHub profile (opens in a new tab)</span>
++                <span className={styles.githubLabel} aria-hidden="true">GitHub</span>
++              </a>
++            </li>
++          </ul>
++        </nav>
++      </div>
++    </header>
+   );
+ }
+diff --git a/src/components/ProjectCard.jsx b/src/components/ProjectCard.jsx
+index cc23469..e629fd0 100644
+--- a/src/components/ProjectCard.jsx
++++ b/src/components/ProjectCard.jsx
+@@ -1,35 +1,61 @@
+-import { Activity, BarChart3, ExternalLink } from 'lucide-react';
++import { ArrowUpRight } from 'lucide-react';
+ import styles from '../styles/ProjectCard.module.css';
++import TechLabel from './TechLabel';
+ 
+-const projectIcons = {
+-  Activity,
+-  BarChart3
+-};
++export default function ProjectCard({ project, index }) {
++  const { category, title, description, tags, image, link } = project;
++  const number = String(index + 1).padStart(2, '0');
+ 
+-export default function ProjectCard({ project }) {
+-  const IconComponent = projectIcons[project.icon];
+-  
+   return (
+-    <div className={`${styles.projCard} ${styles[project.cardClass]}`}>
+-      <div className={styles.projNum}>{project.number}</div>
+-      {IconComponent && (
+-        <div className={styles.projIconWrapper}>
+-          <IconComponent size={48} className={styles.projIcon} strokeWidth={1.5} />
++    <article className={styles.card}>
++      <figure className={styles.frame}>
++        <img
++          className={styles.image}
++          src={image.src}
++          srcSet={image.srcSet}
++          sizes="(min-width: 640px) 50vw, 100vw"
++          alt={image.alt}
++          width={image.width}
++          height={image.height}
++          loading={index < 2 ? 'eager' : 'lazy'}
++          decoding="async"
++        />
++      </figure>
++
++      <div className={styles.body}>
++        <p className={styles.meta}>
++          <span>{number}</span>
++          <span className={styles.rule} aria-hidden="true" />
++          <span>{category}</span>
++        </p>
++
++        <h3 className={styles.title}>
++          {link ? (
++            <a
++              className={styles.titleLink}
++              href={link.href}
++              target="_blank"
++              rel="noopener noreferrer"
++            >
++              {title}
++              <span className="visually-hidden"> — {link.label} (opens in a new tab)</span>
++            </a>
++          ) : (
++            title
++          )}
++        </h3>
++
++        <p className={styles.description}>{description}</p>
++
++        <div className={styles.footer}>
++          <ul role="list" className={styles.tags} aria-label="Technologies">
++            {tags.map((tag) => (
++              <TechLabel key={tag}>{tag}</TechLabel>
++            ))}
++          </ul>
++          {link ? <ArrowUpRight className={styles.arrow} size={22} aria-hidden="true" /> : null}
+         </div>
+-      )}
+-      <div className={styles.projName}>{project.name}</div>
+-      <p className={styles.projDesc}>{project.description}</p>
+-      <div className={styles.projTags}>
+-        {project.tags.map((tag, idx) => (
+-          <span key={idx} className={styles.projTag}>
+-            {tag}
+-          </span>
+-        ))}
+       </div>
+-      <a className={styles.projLink} href={project.link} target="_blank" rel="noopener noreferrer">
+-        <ExternalLink size={16} />
+-        github.com
+-      </a>
+-    </div>
++    </article>
+   );
+ }
+diff --git a/src/components/Projects.jsx b/src/components/Projects.jsx
+index 7418275..b560945 100644
+--- a/src/components/Projects.jsx
++++ b/src/components/Projects.jsx
+@@ -1,19 +1,21 @@
+ import { projects } from '../data/projects';
+ import styles from '../styles/Projects.module.css';
+ import ProjectCard from './ProjectCard';
++import SectionHeading from './SectionHeading';
+ 
+ export default function Projects() {
+   return (
+-    <>
+-      <section id="projects" className={styles.section}>
+-        <div className={styles.sectionEyebrow}>✦ what i've shipped</div>
+-        <h2 className={styles.secTitle}>Projects</h2>
+-        <div className={styles.projGrid}>
+-          {projects.map((project) => (
+-            <ProjectCard key={project.id} project={project} />
++    <section id="work" className={styles.section} aria-labelledby="work-title">
++      <div className="container">
++        <SectionHeading id="work-title" eyebrow="Work" title="Selected work">
++          A selection of systems I&rsquo;ve built and problems I&rsquo;ve worked on.
++        </SectionHeading>
++        <div className={styles.grid}>
++          {projects.map((project, index) => (
++            <ProjectCard key={project.id} project={project} index={index} />
+           ))}
+         </div>
+-      </section>
+-    </>
++      </div>
++    </section>
+   );
+ }
+diff --git a/src/components/SectionHeading.jsx b/src/components/SectionHeading.jsx
+new file mode 100644
+index 0000000..9decd9e
+--- /dev/null
++++ b/src/components/SectionHeading.jsx
+@@ -0,0 +1,11 @@
++import styles from '../styles/SectionHeading.module.css';
++
++export default function SectionHeading({ id, eyebrow, title, children }) {
++  return (
++    <header className={styles.heading}>
++      {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
++      <h2 id={id} className={styles.title}>{title}</h2>
++      {children ? <p className={styles.text}>{children}</p> : null}
++    </header>
++  );
++}
+diff --git a/src/components/TechLabel.jsx b/src/components/TechLabel.jsx
+new file mode 100644
+index 0000000..aa7b8f9
+--- /dev/null
++++ b/src/components/TechLabel.jsx
+@@ -0,0 +1,5 @@
++import styles from '../styles/TechLabel.module.css';
++
++export default function TechLabel({ children }) {
++  return <li className={styles.label}>{children}</li>;
++}
+diff --git a/src/components/Tools.jsx b/src/components/Tools.jsx
+new file mode 100644
+index 0000000..39f0711
+--- /dev/null
++++ b/src/components/Tools.jsx
+@@ -0,0 +1,27 @@
++import { toolGroups } from '../data/tools';
++import styles from '../styles/Tools.module.css';
++import SectionHeading from './SectionHeading';
++
++export default function Tools() {
++  return (
++    <section id="tools" className={styles.section} aria-labelledby="tools-title">
++      <div className="container">
++        <SectionHeading id="tools-title" eyebrow="Toolkit" title="Tools I work with" />
++        <dl className={styles.groups}>
++          {toolGroups.map((group) => (
++            <div key={group.id} className={styles.row}>
++              <dt className={styles.label}>{group.label}</dt>
++              <dd className={styles.items}>
++                <ul role="list" className={styles.list}>
++                  {group.items.map((item) => (
++                    <li key={item}>{item}</li>
++                  ))}
++                </ul>
++              </dd>
++            </div>
++          ))}
++        </dl>
++      </div>
++    </section>
++  );
++}
+diff --git a/src/data/projects.js b/src/data/projects.js
+index 52ddeb0..df11c06 100644
+--- a/src/data/projects.js
++++ b/src/data/projects.js
+@@ -1,30 +1,43 @@
++// To add a project, append an object below. Cards, numbering and grid adapt automatically.
++// Images live in /public/projects/ (recommended: 16:10, e.g. 1600×1000, WebP or JPG).
++const img = (file) => `${import.meta.env.BASE_URL}projects/${file}`;
++
+ export const projects = [
+   {
+-    id: 1,
+-    number: '01',
+-    icon: 'Activity',
+-    name: 'Pharmacio',
++    id: 'sharaf-vision',
++    category: 'Full-stack development',
++    title: 'Sharaf Vision — POS & Inventory',
+     description:
+-      'Modern pharmacy management platform built with Django and PostgreSQL. Handles inventory tracking, prescription management, and customer data with production-grade security and reliability.',
+-    fullDescription:
+-      'Backend system for pharmacy operations including RESTful APIs, database management, and business logic. Currently volunteering at SharafAI to bring healthcare technology to independent pharmacies.',
+-    tags: ['Django', 'PostgreSQL', 'Docker', 'REST APIs'],
+-    link: 'https://github.com/sharaffatima/pharmacio-backend',
+-    cardClass: 'pc1',
+-    status: 'In Development'
++      'An offline-first point-of-sale and inventory system for a luxury interior-decoration business, featuring local data storage and automatic synchronization.',
++    tags: ['React', 'TypeScript', 'Django', 'IndexedDB'],
++    image: {
++      src: img('sharaf-vision.jpg'),
++      // Optional: srcSet: `${img('sharaf-vision-800.jpg')} 800w, ${img('sharaf-vision.jpg')} 1600w`,
++      alt: 'Sharaf Vision branding and application screens shown in a luxury interior-decoration showroom',
++      width: 1600,
++      height: 1000,
++    },
++    link: {
++      href: 'https://github.com/sharaffatima/sharaf-vision',
++      label: 'View Sharaf Vision on GitHub',
++    },
+   },
+   {
+-    id: 2,
+-    number: '02',
+-    icon: 'BarChart3',
+-    name: 'OpenLAP',
++    id: 'openlab',
++    category: 'University group project',
++    title: 'OpenLab — Learning Analytics',
+     description:
+-      'University project exploring learning analytics platform. Implemented new features and ideas.',
+-    fullDescription:
+-      'Learning Analytics Platform developed as part of university curriculum. Demonstrates full-stack development capabilities including backend API design, database optimization, and frontend integration.',
+-    tags: ['JavaScript', 'React', 'Spring Boot', 'Learning Analytics'],
+-    link: 'https://github.com/sharaffatima/openlap-lab',
+-    cardClass: 'pc2',
+-    status: 'Completed'
++      'Contributed to an existing educational platform by implementing and improving features related to open learning analytics, collaboration, and educational insights.',
++    tags: ['React', 'Spring Boot', 'MongoDB', 'JWT'],
++    image: {
++      src: img('openlab.jpg'),
++      alt: 'OpenLab learning analytics interface with data visualizations',
++      width: 1600,
++      height: 1000,
++    },
++    link: {
++      href: 'https://github.com/sharaffatima/openlap-lab',
++      label: 'View OpenLab on GitHub',
++    },
+   },
+ ];
+diff --git a/src/data/site.js b/src/data/site.js
+new file mode 100644
+index 0000000..416bf17
+--- /dev/null
++++ b/src/data/site.js
+@@ -0,0 +1,6 @@
++export const site = {
++  name: 'Fatima Sharaf',
++  email: 'sharaffatima000@gmail.com',
++  github: 'https://github.com/sharaffatima',
++  linkedin: 'https://www.linkedin.com/in/fatima-sharaf-417480340/',
++};
+diff --git a/src/data/skills.js b/src/data/skills.js
+deleted file mode 100644
+index 0ae1a02..0000000
+--- a/src/data/skills.js
++++ /dev/null
+@@ -1,26 +0,0 @@
+-export const skills = [
+-  {
+-    id: 1,
+-    icon: 'Code',
+-    title: 'Core Technologies',
+-    cardClass: 'sk1',
+-    description: 'Production-ready | 1+ year professional experience',
+-    items: ['Python', 'Django', 'PostgreSQL', 'Docker', 'REST APIs']
+-  },
+-  {
+-    id: 2,
+-    icon: 'Database',
+-    title: 'Strong Backend Skills',
+-    cardClass: 'sk2',
+-    description: 'Solid working knowledge | Multiple projects',
+-    items: ['Django REST Framework', 'Database Design', 'API Architecture', 'Docker Compose']
+-  },
+-  {
+-    id: 3,
+-    icon: 'GitBranch',
+-    title: 'Development Practices',
+-    cardClass: 'sk3',
+-    description: 'Best practices | Clean code mindset',
+-    items: ['Git & GitHub', 'Agile Development', 'Code Quality', 'System Design']
+-  }
+-];
+diff --git a/src/data/tools.js b/src/data/tools.js
+new file mode 100644
+index 0000000..501e67b
+--- /dev/null
++++ b/src/data/tools.js
+@@ -0,0 +1,7 @@
++// Grouped from the technologies used in the projects and experience listed on this site.
++export const toolGroups = [
++  { id: 'frontend', label: 'Frontend', items: ['React', 'TypeScript', 'JavaScript'] },
++  { id: 'backend', label: 'Backend', items: ['Python', 'Django', 'Spring Boot', 'REST APIs'] },
++  { id: 'data', label: 'Data', items: ['PostgreSQL', 'MongoDB', 'IndexedDB'] },
++  { id: 'engineering', label: 'Engineering', items: ['Git & GitHub', 'Docker', 'JWT authentication', 'JUnit'] },
++];
+diff --git a/src/hooks/useCursor.js b/src/hooks/useCursor.js
+deleted file mode 100644
+index cbd2b8b..0000000
+--- a/src/hooks/useCursor.js
++++ /dev/null
+@@ -1,55 +0,0 @@
+-import { useEffect, useRef } from 'react';
+-
+-export function useCursor() {
+-  const cursorRef = useRef(null);
+-
+-  useEffect(() => {
+-    const cursor = cursorRef.current;
+-    if (!cursor) return;
+-
+-    const updateCursorPosition = (e) => {
+-      cursor.style.left = e.clientX + 'px';
+-      cursor.style.top = e.clientY + 'px';
+-    };
+-
+-    const enlargeCursor = () => cursor.classList.add('big');
+-    const shrinkCursor = () => cursor.classList.remove('big');
+-
+-    document.addEventListener('mousemove', updateCursorPosition);
+-
+-    // Add event listeners to interactive elements
+-    const interactiveElements = document.querySelectorAll(
+-      'a, button, .sticker, .proj-card, .skill-card, .btn'
+-    );
+-
+-    interactiveElements.forEach((el) => {
+-      el.addEventListener('mouseenter', enlargeCursor);
+-      el.addEventListener('mouseleave', shrinkCursor);
+-    });
+-
+-    // Wobble skill cards on hover
+-    const skillCards = document.querySelectorAll('[data-skill-card]');
+-    skillCards.forEach((card, i) => {
+-      card.addEventListener('mouseenter', () => {
+-        card.style.transform = `rotate(${i % 2 === 0 ? '-2deg' : '2deg'}) scale(1.03)`;
+-      });
+-      card.addEventListener('mouseleave', () => {
+-        card.style.transform = '';
+-      });
+-    });
+-
+-    return () => {
+-      document.removeEventListener('mousemove', updateCursorPosition);
+-      interactiveElements.forEach((el) => {
+-        el.removeEventListener('mouseenter', enlargeCursor);
+-        el.removeEventListener('mouseleave', shrinkCursor);
+-      });
+-      skillCards.forEach((card) => {
+-        card.removeEventListener('mouseenter', null);
+-        card.removeEventListener('mouseleave', null);
+-      });
+-    };
+-  }, []);
+-
+-  return cursorRef;
+-}
+diff --git a/src/index.css b/src/index.css
+deleted file mode 100644
+index 6a228bc..0000000
+--- a/src/index.css
++++ /dev/null
+@@ -1,17 +0,0 @@
+-* {
+-  margin: 0;
+-  padding: 0;
+-  box-sizing: border-box;
+-}
+-
+-body {
+-  margin: 0;
+-  min-height: 100vh;
+-}
+-
+-#root {
+-  min-height: 100vh;
+-  display: flex;
+-  flex-direction: column;
+-}
+-
+diff --git a/src/main.jsx b/src/main.jsx
+index b9a1a6d..9396699 100644
+--- a/src/main.jsx
++++ b/src/main.jsx
+@@ -1,10 +1,10 @@
+-import { StrictMode } from 'react'
+-import { createRoot } from 'react-dom/client'
+-import './index.css'
+-import App from './App.jsx'
++import { StrictMode } from 'react';
++import { createRoot } from 'react-dom/client';
++import App from './App.jsx';
++import './styles/global.css';
+ 
+ createRoot(document.getElementById('root')).render(
+   <StrictMode>
+     <App />
+   </StrictMode>,
+-)
++);
+diff --git a/src/styles/About.module.css b/src/styles/About.module.css
+index 50563f3..dd6cf8f 100644
+--- a/src/styles/About.module.css
++++ b/src/styles/About.module.css
+@@ -1,89 +1,39 @@
+-.aboutStrip {
+-  background: linear-gradient(145deg, rgba(20, 21, 68, 0.98), rgba(7, 15, 43, 0.98));
+-  border-top: 1px solid rgba(176, 179, 223, 0.5);
+-  border-bottom: 1px solid rgba(176, 179, 223, 0.5);
+-  padding: clamp(2rem, 5vw, 2.8rem);
+-  display: grid;
+-  grid-template-columns: 1fr 1fr;
+-  gap: 2rem;
+-  align-items: center;
+-  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
+-  margin: 0 auto;
+-}
+-
+-.aboutStrip h3 {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: 2rem;
+-  font-weight: 600;
+-  letter-spacing: 2px;
+-  line-height: 1.2;
+-  margin-bottom: 0.75rem;
+-  color: var(--c5);
+-}
+-
+-.aboutStrip p {
+-  font-size: 1rem;
+-  line-height: 1.7;
+-  color: var(--text);
+-}
+-
+-.funFacts {
+-  list-style: none;
+-  display: flex;
+-  flex-direction: column;
+-  gap: 0.6rem;
+-}
+-
+-.funFacts li {
+-  background: rgba(27, 26, 85, 0.72);
+-  border: 1px solid rgba(176, 179, 223, 0.4);
+-  border-radius: 6px;
+-  padding: 0.5rem 0.9rem;
+-  font-size: 0.9rem;
+-  box-shadow: 0 8px 18px rgba(4, 6, 20, 0.32);
+-  display: flex;
+-  gap: 0.5rem;
+-  align-items: center;
+-  color: var(--text);
++.section {
++  padding-block: var(--space-7) var(--section-space);
++  border-top: 1px solid var(--color-border);
+ }
+ 
+-.factIcon {
+-  color: var(--c1);
+-  flex-shrink: 0;
++.grid {
++  display: grid;
++  grid-template-columns: 1fr;
++  gap: var(--space-5);
+ }
+ 
+-.star {
+-  display: inline-flex;
+-  animation: spin 8s linear infinite;
+-  align-items: center;
+-  justify-content: center;
+-  color: var(--c1);
++.title {
++  font-family: var(--font-display);
++  font-weight: 600;
++  font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.75rem);
++  line-height: 1.1;
++  letter-spacing: -0.025em;
+ }
+ 
+-@keyframes spin {
+-  to {
+-    transform: rotate(360deg);
+-  }
++.text {
++  display: grid;
++  gap: var(--space-4);
++  max-width: 60ch;
++  font-size: 1.0625rem;
++  color: var(--color-text-muted);
+ }
+ 
+-@media (max-width: 620px) {
+-  .aboutStrip {
+-    grid-template-columns: 1fr;
+-    padding: 2rem 1rem;
+-    gap: 1.5rem;
++@media (min-width: 900px) {
++  .grid {
++    grid-template-columns: repeat(12, minmax(0, 1fr));
++    column-gap: var(--space-5);
+   }
+-
+-  .aboutStrip h3 {
+-    font-size: 1.65rem;
+-    letter-spacing: 2px;
+-  }
+-
+-  .aboutStrip p {
+-    font-size: 0.95rem;
++  .title {
++    grid-column: 1 / span 5;
+   }
+-
+-  .funFacts li {
+-    font-size: 0.84rem;
+-    padding: 0.6rem 0.75rem;
++  .text {
++    grid-column: 7 / span 6;
+   }
+ }
+diff --git a/src/styles/Button.module.css b/src/styles/Button.module.css
+new file mode 100644
+index 0000000..d0360c9
+--- /dev/null
++++ b/src/styles/Button.module.css
+@@ -0,0 +1,39 @@
++.button {
++  display: inline-flex;
++  align-items: center;
++  gap: var(--space-2);
++  min-height: 44px;
++  font-family: var(--font-body);
++  font-size: 0.9375rem;
++  font-weight: 500;
++  line-height: 1;
++  text-decoration: none;
++  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
++}
++
++.icon {
++  display: inline-flex;
++  transition: transform var(--transition);
++}
++.button:hover .icon,
++.button:focus-visible .icon {
++  transform: translateX(3px);
++}
++
++.primary {
++  padding: 0 var(--space-5);
++  background: var(--color-accent);
++  color: #fff;
++  border-radius: var(--radius-sm);
++}
++.primary:hover {
++  background: var(--color-accent-hover);
++}
++
++.link {
++  color: var(--color-accent);
++  padding: 0 var(--space-1);
++}
++.link:hover {
++  color: var(--color-accent-hover);
++}
+diff --git a/src/styles/Contact.module.css b/src/styles/Contact.module.css
+index 7b5da14..fc8fbaf 100644
+--- a/src/styles/Contact.module.css
++++ b/src/styles/Contact.module.css
+@@ -1,90 +1,70 @@
+ .section {
+-  padding: var(--section-block) 0;
+-  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
+-  margin: 0 auto;
+-  position: relative;
+-  z-index: 1;
++  padding-block: var(--space-7) var(--section-space);
++  border-top: 1px solid var(--color-border);
+ }
+ 
+-.contactBlob {
+-  background: linear-gradient(145deg, rgba(20, 21, 68, 0.98), rgba(7, 15, 43, 0.98));
+-  border: 1px solid rgba(176, 179, 223, 0.45);
+-  border-radius: 24px;
+-  box-shadow: 0 14px 28px rgba(4, 6, 20, 0.4);
+-  padding: 3rem 2.5rem;
+-  text-align: center;
+-  color: var(--text);
+-}
+-
+-.contactBlob h3 {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: 2.4rem;
++.title {
++  max-width: 18ch;
++  font-family: var(--font-display);
+   font-weight: 600;
+-  letter-spacing: 2px;
+-  margin-bottom: 0.75rem;
+-  color: var(--c5);
+-  display: flex;
+-  align-items: center;
+-  justify-content: center;
+-  gap: 0.5rem;
++  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.5rem);
++  line-height: 1.06;
++  letter-spacing: -0.03em;
++  text-wrap: balance;
+ }
+ 
+-.contactBlob p {
+-  font-size: 1rem;
+-  opacity: 0.85;
+-  max-width: 420px;
+-  margin: 0 auto 2rem;
+-  line-height: 1.7;
++.text {
++  max-width: 52ch;
++  margin-top: var(--space-4);
++  color: var(--color-text-muted);
+ }
+ 
+-.contactLinks {
+-  display: flex;
+-  justify-content: center;
+-  gap: 1rem;
++.email {
++  display: inline-flex;
++  align-items: center;
+   flex-wrap: wrap;
+-}
+-
+-.contactBtn {
+-  font-family: 'Sora', sans-serif;
+-  font-weight: 800;
+-  font-size: 0.9rem;
+-  padding: 0.7rem 1.5rem;
+-  border-radius: 999px;
+-  border: 1px solid rgba(176, 179, 223, 0.55);
+-  box-shadow: 0 8px 20px rgba(4, 6, 20, 0.35);
+-  background: rgba(27, 26, 85, 0.8);
+-  color: var(--c5);
++  gap: var(--space-3);
++  margin-top: var(--space-6);
++  padding: var(--space-3) var(--space-5);
++  min-height: 48px;
++  font-weight: 500;
++  color: var(--color-accent);
+   text-decoration: none;
+-  transition: all 0.15s;
++  background: var(--color-accent-muted);
++  border: 1px solid var(--color-border);
++  border-radius: var(--radius-md);
++  overflow-wrap: anywhere;
++  transition: color var(--transition), border-color var(--transition);
+ }
+-
+-.contactBtn:hover {
+-  background: var(--c1);
+-  color: #070f2b;
+-  transform: translate(-2px, -2px);
++.email:hover {
++  color: var(--color-accent-hover);
++  border-color: var(--color-accent);
+ }
+ 
+-@media (max-width: 768px) {
+-  .contactBlob {
+-    padding: 2.25rem 1.25rem;
+-    border-radius: 18px;
+-  }
+-
+-  .contactBlob h3 {
+-    font-size: 1.8rem;
+-    letter-spacing: 2px;
+-    flex-wrap: wrap;
+-  }
++.arrow {
++  transition: transform var(--transition);
++}
++.email:hover .arrow {
++  transform: translate(3px, -3px);
+ }
+ 
+-@media (max-width: 480px) {
+-  .section {
+-    padding: 3rem 1rem;
+-  }
++.links {
++  display: flex;
++  flex-wrap: wrap;
++  gap: var(--space-2) var(--space-6);
++  margin: var(--space-5) 0 0;
++}
+ 
+-  .contactBtn {
+-    width: 100%;
+-    justify-content: center;
+-    display: inline-flex;
+-  }
++.link {
++  display: inline-flex;
++  align-items: center;
++  gap: var(--space-2);
++  min-height: 44px;
++  font-size: 0.9375rem;
++  color: var(--color-text-muted);
++  text-decoration: none;
++  transition: color var(--transition);
++}
++.link:hover {
++  color: var(--color-accent);
+ }
+diff --git a/src/styles/Footer.module.css b/src/styles/Footer.module.css
+index 7f25d4d..ce5c170 100644
+--- a/src/styles/Footer.module.css
++++ b/src/styles/Footer.module.css
+@@ -1,25 +1,31 @@
+ .footer {
+-  text-align: center;
+-  padding: 1.5rem;
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 0.8rem;
+-  color: var(--text-muted);
+-  border-top: 3px solid var(--ink);
++  border-top: 1px solid var(--color-border);
++  font-size: 0.875rem;
++  color: var(--color-text-muted);
++}
++
++.inner {
+   display: flex;
++  flex-wrap: wrap;
+   align-items: center;
+-  justify-content: center;
+-  gap: 0.5rem;
++  justify-content: space-between;
++  gap: var(--space-2) var(--space-5);
++  padding-block: var(--space-5);
+ }
+ 
+-.star {
++.detail {
++  font-family: var(--font-mono);
++  font-size: 0.75rem;
++}
++
++.link {
+   display: inline-flex;
+-  animation: spin 0.8s linear infinite;
+   align-items: center;
+-  justify-content: center;
++  gap: var(--space-2);
++  min-height: 44px;
++  text-decoration: none;
++  transition: color var(--transition);
+ }
+-
+-@keyframes spin {
+-  to {
+-    transform: rotate(360deg);
+-  }
++.link:hover {
++  color: var(--color-accent);
+ }
+diff --git a/src/styles/Hero.module.css b/src/styles/Hero.module.css
+index 837fa5b..724531d 100644
+--- a/src/styles/Hero.module.css
++++ b/src/styles/Hero.module.css
+@@ -1,254 +1,65 @@
+ .hero {
+-  position: relative;
+-  padding: clamp(3rem, 8vw, 5rem) 0 clamp(2.4rem, 6vw, 4rem);
+-  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
+-  margin: 0 auto;
+-  z-index: 1;
++  padding-block: clamp(56px, 9vw, 120px) clamp(48px, 7vw, 96px);
+ }
+ 
+-.heroSup {
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 0.85rem;
+-  color: var(--c1);
+-  background: rgba(146, 144, 195, 0.08);
+-  display: inline-flex;
+-  align-items: center;
+-  gap: 0.5rem;
+-  padding: 0.35rem 0.9rem;
+-  border: 2px dashed var(--c1);
+-  border-radius: 4px;
+-  margin-bottom: 1.5rem;
+-  animation: blink 2s infinite;
+-}
+-
+-@keyframes blink {
+-  0%,
+-  100% {
+-    opacity: 1;
+-  }
+-  50% {
+-    opacity: 0.6;
+-  }
++.inner {
++  display: grid;
++  justify-items: start;
+ }
+ 
+-.heroName {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: clamp(3.5rem, 10vw, 6.5rem);
+-  font-weight: 600;
+-  line-height: 1.05;
+-  letter-spacing: 4px;
+-  margin-bottom: 0.5rem;
+-}
+-
+-.stroke {
+-  -webkit-text-stroke: 2px var(--ink);
+-  color: transparent;
+-}
+-
+-.fillPink {
+-  color: var(--c1);
+-}
+-
+-.fillYellow {
+-  color: var(--c4);
+-}
+-
+-.heroRole {
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 1.1rem;
+-  color: var(--text-muted);
+-  margin-bottom: 1.5rem;
+-  display: flex;
++.eyebrow {
++  display: inline-flex;
+   align-items: center;
+-  gap: 0.5rem;
+-}
+-
+-.cursorBlink {
+-  display: inline-block;
+-  width: 10px;
+-  height: 1.1em;
+-  background: var(--c1);
+-  animation: blink 1s infinite step-end;
+-}
+-
+-.heroDesc {
+-  max-width: 540px;
+-  font-size: 1.05rem;
+-  line-height: 1.75;
+-  color: var(--text);
+-  margin-bottom: 2.5rem;
+-  border-left: 5px solid var(--c1);
+-  padding-left: 1.25rem;
+-}
+-
+-.stickerRow {
+-  display: flex;
+-  flex-wrap: wrap;
+-  gap: 0.75rem;
+-  margin-bottom: 2.5rem;
+-}
+-
+-.sticker {
+-  font-family: 'IBM Plex Mono', monospace;
++  gap: var(--space-3);
++  margin-bottom: var(--space-5);
++  font-family: var(--font-mono);
+   font-size: 0.75rem;
+-  font-weight: 500;
+-  letter-spacing: 0.05em;
+-  padding: 0.35rem 0.9rem;
+-  border-radius: 999px;
+-  border: 1px solid;
+-  color: var(--text);
+-  cursor: default;
+-  transition: transform 0.15s, box-shadow 0.15s;
+-  user-select: none;
+-}
+-
+-.sticker:hover {
+-  transform: translate(-2px, -2px);
+-  box-shadow: 5px 5px 0 var(--ink);
+-}
+-
+-.s1 {
+-  background: rgba(146, 144, 195, 0.24);
+-  border-color: rgba(176, 179, 223, 0.95);
+-}
+-
+-.s2 {
+-  background: rgba(83, 92, 145, 0.34);
+-  border-color: rgba(146, 144, 195, 0.92);
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--color-text-muted);
+ }
+ 
+-.s3 {
+-  background: rgba(27, 26, 85, 0.7);
+-  border-color: rgba(146, 144, 195, 0.9);
++.dot {
++  width: 8px;
++  height: 8px;
++  border-radius: 50%;
++  background: var(--color-accent);
+ }
+ 
+-.s4 {
+-  background: rgba(122, 130, 183, 0.24);
+-  border-color: rgba(176, 179, 223, 0.92);
+-}
+-
+-.s5 {
+-  background: rgba(176, 179, 223, 0.24);
+-  border-color: rgba(195, 198, 235, 0.95);
++.title {
++  max-width: 17ch;
++  font-family: var(--font-display);
++  font-weight: 600;
++  /* ~38px on small phones, up to 76px on wide desktops */
++  font-size: clamp(2.375rem, 1.35rem + 4.4vw, 4.75rem);
++  line-height: 1.04;
++  letter-spacing: -0.035em;
++  text-wrap: balance;
+ }
+ 
+-.s6 {
+-  background: rgba(83, 92, 145, 0.38);
+-  border-color: rgba(195, 198, 235, 0.95);
++.text {
++  max-width: 52ch;
++  margin-top: var(--space-5);
++  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
++  color: var(--color-text-muted);
+ }
+ 
+-.heroCtas {
++.actions {
+   display: flex;
+-  gap: 1rem;
+   flex-wrap: wrap;
++  align-items: center;
++  gap: var(--space-3) var(--space-5);
++  margin-top: var(--space-6);
+ }
+ 
+-.btn {
+-  font-family: 'Sora', sans-serif;
+-  font-weight: 800;
+-  font-size: 0.95rem;
+-  padding: 0.8rem 2rem;
+-  border-radius: 6px;
+-  border: 3px solid var(--ink);
+-  box-shadow: 4px 4px 0 var(--ink);
+-  cursor: pointer;
+-  text-decoration: none;
+-  transition: transform 0.12s, box-shadow 0.12s;
+-  display: inline-block;
+-}
+-
+-.btn:hover {
+-  transform: translate(-2px, -2px);
+-  box-shadow: 6px 6px 0 var(--ink);
+-}
+-
+-.btn:active {
+-  transform: translate(2px, 2px);
+-  box-shadow: 2px 2px 0 var(--ink);
+-}
+-
+-.btnMain {
+-  background: var(--c1);
+-  color: #070f2b;
+-}
+-
+-.btnGhost {
+-  background: transparent;
+-  color: var(--text);
+-}
+-
+-@media (max-width: 768px) {
+-  .hero {
+-    padding: clamp(2.6rem, 9vw, 4rem) 0 clamp(2.2rem, 6vw, 3rem);
+-  }
+-
+-  .heroSup {
+-    font-size: 0.75rem;
+-    line-height: 1.5;
+-    flex-wrap: wrap;
+-  }
+-
+-  .heroName {
+-    font-size: clamp(2.8rem, 18vw, 4.6rem);
+-    letter-spacing: 2px;
+-  }
+-
+-  .heroRole {
+-    font-size: 0.95rem;
+-    flex-wrap: wrap;
+-  }
+-
+-  .heroDesc {
+-    max-width: none;
+-    font-size: 0.98rem;
+-    line-height: 1.65;
+-    padding-left: 1rem;
+-  }
+-
+-  .heroCtas {
++@media (max-width: 479px) {
++  .actions {
+     flex-direction: column;
++    align-items: flex-start;
++    width: 100%;
+   }
+-
+-  .btn {
++  .actions > :first-child {
+     width: 100%;
+     justify-content: center;
+-    text-align: center;
+-    display: inline-flex;
+-    align-items: center;
+-  }
+-}
+-
+-@media (max-width: 480px) {
+-  .hero {
+-    padding: clamp(2.4rem, 8vw, 3.3rem) 0 2.4rem;
+-  }
+-
+-  .heroSup {
+-    padding: 0.35rem 0.7rem;
+-  }
+-
+-  .heroName {
+-    font-size: clamp(2.4rem, 17vw, 3.6rem);
+-    line-height: 1;
+-  }
+-
+-  .heroDesc {
+-    border-left-width: 3px;
+-    font-size: 0.93rem;
+-    padding-left: 0.85rem;
+-  }
+-
+-  .stickerRow {
+-    gap: 0.55rem;
+-  }
+-
+-  .sticker {
+-    font-size: 0.68rem;
+-    padding: 0.3rem 0.75rem;
+-  }
+-
+-  .btn {
+-    font-size: 0.9rem;
+-    padding: 0.8rem 1rem;
+   }
+ }
+diff --git a/src/styles/Navigation.module.css b/src/styles/Navigation.module.css
+index 1ea9a9b..fc35dd4 100644
+--- a/src/styles/Navigation.module.css
++++ b/src/styles/Navigation.module.css
+@@ -1,111 +1,94 @@
+-.nav {
++.header {
++  position: sticky;
++  top: 0;
++  z-index: 50;
++  background: var(--color-bg);
++  border-bottom: 1px solid var(--color-border);
++}
++
++.bar {
+   display: flex;
+-  justify-content: space-between;
+   align-items: center;
+-  padding: 1rem var(--content-gutter);
+-  position: fixed;
+-  top: 0;
+-  left: 0;
+-  right: 0;
+-  z-index: 100;
+-  background: rgba(6, 13, 26, 0.92);
+-  backdrop-filter: blur(10px);
+-  border-bottom: 3px solid var(--ink);
++  justify-content: space-between;
++  height: var(--header-height);
+ }
+ 
+-.logo {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: 1.8rem;
++.wordmark {
++  font-family: var(--font-display);
+   font-weight: 600;
+-  letter-spacing: 3px;
+-  color: var(--c1);
+-  position: relative;
++  font-size: 1.0625rem;
++  letter-spacing: -0.01em;
+   text-decoration: none;
+ }
+ 
+-.logo::after {
+-  content: '';
+-  position: absolute;
+-  bottom: -2px;
+-  left: 0;
+-  width: 100%;
+-  height: 4px;
+-  background: var(--c4);
+-  transform: skewX(-12deg);
+-}
+-
+-.navLinks {
++.list {
+   display: flex;
+-  gap: 1.5rem;
+-  list-style: none;
++  align-items: center;
++  gap: var(--space-6);
++  margin: 0;
+ }
+ 
+-.navLinks a {
+-  font-size: 0.8rem;
+-  font-weight: 500;
+-  text-transform: uppercase;
+-  letter-spacing: 0.12em;
+-  color: var(--text-muted);
++.link {
++  display: inline-flex;
++  align-items: center;
++  gap: var(--space-2);
++  min-height: 44px;
++  font-size: 0.875rem;
++  color: var(--color-text-muted);
+   text-decoration: none;
+-  padding: 0.3rem 0.8rem;
+-  border: 1px solid transparent;
+-  border-radius: 4px;
+-  transition: all 0.15s;
++  transition: color var(--transition);
++}
++.link:hover {
++  color: var(--color-accent);
+ }
+ 
+-.navLinks a:hover {
+-  border-color: var(--c1);
+-  background: rgba(146, 144, 195, 0.08);
+-  color: var(--c1);
++.githubLabel {
++  display: none;
+ }
+ 
+-.menuButton {
++.toggle {
+   display: none;
+   align-items: center;
+   justify-content: center;
+   width: 44px;
+   height: 44px;
+-  border: 2px solid var(--ink);
+-  border-radius: 8px;
+-  background: rgba(13, 31, 60, 0.92);
+-  color: var(--c1);
++  margin-right: calc(var(--space-2) * -1);
++  padding: 0;
++  background: none;
++  border: 0;
++  color: var(--color-text);
++  cursor: pointer;
+ }
+ 
+-@media (max-width: 768px) {
+-  .nav {
+-    padding: 0.95rem var(--content-gutter);
+-    align-items: flex-start;
+-    flex-wrap: wrap;
+-    gap: 0.75rem;
+-  }
+-
+-  .logo {
+-    font-size: 1.35rem;
+-    letter-spacing: 2px;
+-  }
+-
+-  .menuButton {
++@media (max-width: 719px) {
++  .toggle {
+     display: inline-flex;
+-    margin-left: auto;
+   }
+-
+-  .navLinks {
++  .nav {
+     display: none;
+-    width: 100%;
+-    flex-direction: column;
+-    gap: 0.35rem;
+-    padding-top: 0.5rem;
++    position: absolute;
++    top: 100%;
++    left: 0;
++    right: 0;
++    padding: var(--space-2) var(--gutter) var(--space-5);
++    background: var(--color-bg);
++    border-bottom: 1px solid var(--color-border);
+   }
+-
+-  .navLinksOpen {
+-    display: flex;
+-  }
+-
+-  .navLinks a {
++  .navOpen {
+     display: block;
++  }
++  .list {
++    flex-direction: column;
++    align-items: stretch;
++    gap: 0;
++  }
++  .link {
+     width: 100%;
+-    padding: 0.75rem 0.9rem;
+-    background: rgba(146, 144, 195, 0.04);
+-    border: 1px solid rgba(146, 144, 195, 0.2);
++    font-size: 1rem;
++    color: var(--color-text);
++    border-bottom: 1px solid var(--color-border);
++  }
++  .githubLabel {
++    display: inline;
+   }
+ }
+diff --git a/src/styles/ProjectCard.module.css b/src/styles/ProjectCard.module.css
+index 5361e6a..9c91a70 100644
+--- a/src/styles/ProjectCard.module.css
++++ b/src/styles/ProjectCard.module.css
+@@ -1,131 +1,114 @@
+-.projCard {
+-  background:
+-    radial-gradient(circle at 92% 8%, rgba(146, 144, 195, 0.18), transparent 34%),
+-    linear-gradient(145deg, rgba(27, 26, 85, 0.96), rgba(7, 15, 43, 0.95));
+-  border: 1px solid rgba(146, 144, 195, 0.36);
+-  border-radius: 16px;
+-  padding: 1.5rem;
+-  box-shadow: 0 12px 26px rgba(3, 5, 18, 0.42);
+-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+-  position: relative;
+-  overflow: hidden;
++.card {
++  position: relative; /* anchors the stretched link */
++  display: flex;
++  flex-direction: column;
++  gap: var(--space-5);
++  min-width: 0;
+ }
+ 
+-.projCard:hover {
+-  transform: translateY(-4px);
+-  box-shadow: 0 16px 30px rgba(3, 5, 18, 0.5);
+-  border-color: rgba(146, 144, 195, 0.62);
++.frame {
++  aspect-ratio: 16 / 10;
++  overflow: hidden;
++  background: var(--color-surface-subtle);
++  border: 1px solid var(--color-border);
++  border-radius: var(--radius-frame);
+ }
+ 
+-.projCard::before {
+-  content: '';
+-  position: absolute;
+-  top: 0;
+-  left: 0;
+-  right: 0;
+-  height: 5px;
++.image {
++  width: 100%;
++  height: 100%;
++  object-fit: cover;
++  transition: transform 250ms ease;
+ }
+ 
+-.pc1::before {
+-  background: var(--c1);
++.body {
++  display: flex;
++  flex: 1;
++  flex-direction: column;
++  gap: var(--space-3);
+ }
+ 
+-.pc2::before {
+-  background: var(--c3);
++.meta {
++  display: flex;
++  align-items: center;
++  gap: var(--space-3);
++  font-family: var(--font-mono);
++  font-size: 0.75rem;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--color-text-muted);
++}
++.meta > :first-child {
++  color: var(--color-accent);
+ }
+ 
+-.pc3::before {
+-  background: var(--c2);
++.rule {
++  width: 24px;
++  height: 1px;
++  background: var(--color-border);
+ }
+ 
+-.pc4::before {
+-  background: var(--c5);
++.title {
++  font-family: var(--font-display);
++  font-weight: 600;
++  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
++  line-height: 1.2;
++  letter-spacing: -0.02em;
+ }
+ 
+-.projNum {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: 3.5rem;
+-  color: rgba(146, 144, 195, 0.14);
++.titleLink {
++  text-decoration: none;
++  transition: color var(--transition);
++}
++/* Makes the whole card one keyboard- and touch-friendly link target */
++.titleLink::after {
++  content: '';
+   position: absolute;
+-  top: 0.5rem;
+-  right: 1rem;
+-  line-height: 1;
+-  user-select: none;
++  inset: 0;
+ }
+-
+-.projIconWrapper {
+-  margin-bottom: 0.75rem;
+-  color: var(--c1);
++.titleLink:focus-visible {
++  outline: none;
+ }
+-
+-.projIcon {
+-  opacity: 0.8;
++.card:has(.titleLink:focus-visible) .frame {
++  outline: 2px solid var(--color-accent);
++  outline-offset: 4px;
+ }
+ 
+-.projName {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: 1.3rem;
+-  font-weight: 600;
+-  letter-spacing: 0.6px;
+-  margin-bottom: 0.4rem;
++.description {
++  color: var(--color-text-muted);
++  max-width: 56ch;
+ }
+ 
+-.projDesc {
+-  font-size: 0.875rem;
+-  color: var(--text-muted);
+-  line-height: 1.65;
+-  margin-bottom: 1rem;
++.footer {
++  display: flex;
++  align-items: flex-end;
++  justify-content: space-between;
++  gap: var(--space-4);
++  margin-top: auto; /* keeps tags aligned at the bottom across uneven text */
++  padding-top: var(--space-3);
+ }
+ 
+-.projTags {
++.tags {
+   display: flex;
+   flex-wrap: wrap;
+-  gap: 0.4rem;
+-  margin-bottom: 0.75rem;
++  gap: var(--space-2);
++  margin: 0;
+ }
+ 
+-.projTag {
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 0.7rem;
+-  padding: 0.24rem 0.62rem;
+-  background: rgba(83, 92, 145, 0.28);
+-  color: var(--c5);
+-  border: 1px solid rgba(146, 144, 195, 0.35);
+-  border-radius: 999px;
++.arrow {
++  flex-shrink: 0;
++  color: var(--color-accent);
++  transition: transform var(--transition);
+ }
+ 
+-.projLink {
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 0.78rem;
+-  color: var(--c4);
+-  text-decoration: none;
+-  font-weight: 500;
+-  display: inline-flex;
+-  align-items: center;
+-  gap: 0.4rem;
+-  transition: color 0.15s;
++.card:hover .image {
++  transform: scale(1.03);
+ }
+-
+-.projLink:hover {
+-  color: var(--c1);
++.card:hover .titleLink,
++.card:has(.titleLink:focus-visible) .titleLink {
++  color: var(--color-accent);
+ }
+-
+-@media (max-width: 480px) {
+-  .projCard {
+-    padding: 1.2rem;
+-  }
+-
+-  .projNum {
+-    font-size: 2.7rem;
+-    right: 0.75rem;
+-  }
+-
+-  .projName {
+-    font-size: 1.15rem;
+-    padding-right: 2rem;
+-  }
+-
+-  .projDesc {
+-    font-size: 0.84rem;
+-  }
++.card:hover .arrow,
++.card:has(.titleLink:focus-visible) .arrow {
++  transform: translate(3px, -3px);
+ }
+diff --git a/src/styles/Projects.module.css b/src/styles/Projects.module.css
+index ce2bed6..d0da884 100644
+--- a/src/styles/Projects.module.css
++++ b/src/styles/Projects.module.css
+@@ -1,52 +1,24 @@
+ .section {
+-  padding: var(--section-block) 0;
+-  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
+-  margin: 0 auto;
+-  position: relative;
+-  z-index: 1;
++  padding-block: var(--space-7) var(--section-space);
++  border-top: 1px solid var(--color-border);
+ }
+ 
+-.sectionEyebrow {
+-  font-family: 'IBM Plex Mono', monospace;
+-  font-size: 0.8rem;
+-  font-weight: 400;
+-  letter-spacing: 4px;
+-  color: var(--c1);
+-  text-transform: uppercase;
+-  margin-bottom: 0.5rem;
+-}
+-
+-.secTitle {
+-  font-family: 'Cormorant Garamond', serif;
+-  font-size: clamp(2rem, 5vw, 3.2rem);
+-  font-weight: 600;
+-  letter-spacing: 1.5px;
+-  line-height: 1.1;
+-  margin-bottom: 2.5rem;
+-  position: relative;
+-  display: inline-block;
+-}
+-
+-.projGrid {
++.grid {
+   display: grid;
+-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+-  gap: 1.5rem;
++  grid-template-columns: 1fr;
++  gap: var(--space-8) var(--space-6);
++  margin-top: var(--space-7);
+ }
+ 
+-@media (max-width: 768px) {
+-  .sectionEyebrow {
+-    letter-spacing: 3px;
+-  }
+-
+-  .secTitle {
+-    letter-spacing: 2px;
+-    margin-bottom: 2rem;
++@media (min-width: 640px) {
++  .grid {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++    gap: var(--space-8) var(--space-5);
+   }
+ }
+ 
+-@media (max-width: 480px) {
+-  .projGrid {
+-    grid-template-columns: 1fr;
+-    gap: 1rem;
++@media (min-width: 900px) {
++  .grid {
++    column-gap: var(--space-7);
+   }
+ }
+diff --git a/src/styles/SectionHeading.module.css b/src/styles/SectionHeading.module.css
+new file mode 100644
+index 0000000..1bad5ce
+--- /dev/null
++++ b/src/styles/SectionHeading.module.css
+@@ -0,0 +1,25 @@
++.heading {
++  display: grid;
++  gap: var(--space-3);
++}
++
++.eyebrow {
++  font-family: var(--font-mono);
++  font-size: 0.75rem;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--color-accent);
++}
++
++.title {
++  font-family: var(--font-display);
++  font-weight: 600;
++  font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.75rem);
++  line-height: 1.1;
++  letter-spacing: -0.025em;
++}
++
++.text {
++  max-width: 52ch;
++  color: var(--color-text-muted);
++}
+diff --git a/src/styles/TechLabel.module.css b/src/styles/TechLabel.module.css
+new file mode 100644
+index 0000000..52f5558
+--- /dev/null
++++ b/src/styles/TechLabel.module.css
+@@ -0,0 +1,11 @@
++.label {
++  display: inline-block;
++  padding: 2px var(--space-3);
++  font-family: var(--font-body);
++  font-size: 0.8125rem;
++  line-height: 1.6;
++  color: var(--color-text);
++  border: 1px solid var(--color-border);
++  border-radius: var(--radius-sm);
++  background: var(--color-surface);
++}
+diff --git a/src/styles/Tools.module.css b/src/styles/Tools.module.css
+new file mode 100644
+index 0000000..b44d562
+--- /dev/null
++++ b/src/styles/Tools.module.css
+@@ -0,0 +1,53 @@
++.section {
++  padding-block: var(--space-7) var(--section-space);
++  border-top: 1px solid var(--color-border);
++}
++
++.groups {
++  margin: var(--space-7) 0 0;
++  border-top: 1px solid var(--color-border);
++}
++
++.row {
++  display: grid;
++  grid-template-columns: 1fr;
++  gap: var(--space-2);
++  padding-block: var(--space-5);
++  border-bottom: 1px solid var(--color-border);
++}
++
++.label {
++  font-family: var(--font-mono);
++  font-size: 0.75rem;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--color-text-muted);
++}
++
++.items {
++  margin: 0;
++}
++
++.list {
++  display: flex;
++  flex-wrap: wrap;
++  gap: var(--space-1) 0;
++  margin: 0;
++  font-size: 1.0625rem;
++}
++
++/* Subtle separators between items instead of pills or logos */
++.list li + li::before {
++  content: '/';
++  margin-inline: var(--space-3);
++  color: var(--color-border);
++}
++
++@media (min-width: 720px) {
++  .row {
++    /* Aligns with the 12-column grid: 3 columns label, 9 columns content */
++    grid-template-columns: 3fr 9fr;
++    gap: var(--space-5);
++    align-items: baseline;
++  }
++}
+diff --git a/src/styles/global.css b/src/styles/global.css
+index f1e7f16..555f585 100644
+--- a/src/styles/global.css
++++ b/src/styles/global.css
+@@ -1,141 +1,164 @@
+-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+-
++/* ==========================================================================
++   Design tokens — edit here to refine the whole site
++   ========================================================================== */
++:root {
++  /* Colour */
++  --color-bg: #fafaf7;
++  --color-text: #20231f;
++  /* #737770 only reaches 4.4:1 on the page background; this slightly darker
++     value keeps small text above WCAG AA (4.97:1 on bg, 4.62:1 on subtle). */
++  --color-text-muted: #6a6e67;
++  --color-accent: #365b48;
++  --color-accent-hover: #2b4a3a;
++  --color-surface: #ffffff;
++  --color-border: #e7e7e0;
++  --color-surface-subtle: #f1f2ec;
++  --color-accent-muted: #eaf0e9;
++
++  /* Typography */
++  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
++  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
++  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
++
++  /* Spacing scale (4 / 8 px based) */
++  --space-1: 4px;
++  --space-2: 8px;
++  --space-3: 12px;
++  --space-4: 16px;
++  --space-5: 24px;
++  --space-6: 32px;
++  --space-7: 48px;
++  --space-8: 64px;
++  --space-9: 96px;
++  --space-10: 128px;
++
++  /* Shape & motion */
++  --radius-sm: 8px;
++  --radius-md: 12px;
++  --radius-frame: 12px;
++  --transition: 200ms ease;
++
++  /* Layout */
++  --container-max: 1200px;
++  --gutter: 20px;
++  --header-height: 64px;
++  --section-space: clamp(72px, 10vw, 128px);
++}
++
++@media (min-width: 640px) {
++  :root { --gutter: 28px; }
++}
++@media (min-width: 900px) {
++  :root { --gutter: 48px; }
++}
++@media (min-width: 1200px) {
++  :root { --gutter: 64px; }
++}
++
++/* ==========================================================================
++   Base
++   ========================================================================== */
+ *,
+ *::before,
+ *::after {
+   box-sizing: border-box;
+-  margin: 0;
+-  padding: 0;
+-}
+-
+-:root {
+-  --c1: #9290c3;
+-  --c2: #535c91;
+-  --c3: #1b1a55;
+-  --c4: #7a82b7;
+-  --c5: #b0b3df;
+-  --ink: #c3c6eb;
+-  --paper: #070f2b;
+-  --paper2: #141544;
+-  --text: #f6f7ff;
+-  --text-muted: #d3d7f5;
+-  --line: #535c91;
+-  --content-max: 72rem;
+-  --content-gutter: clamp(1rem, 3.2vw, 2.25rem);
+-  --section-block: clamp(2.75rem, 7vw, 4.5rem);
+ }
+ 
+ html {
++  color-scheme: light;
+   scroll-behavior: smooth;
+-}
+-
+-#root {
+-  min-height: 100vh;
+-  overflow-x: hidden;
++  scroll-padding-top: calc(var(--header-height) + var(--space-5));
++  -webkit-text-size-adjust: 100%;
+ }
+ 
+ body {
+-  font-family: 'Sora', sans-serif;
+-  background:
+-    radial-gradient(circle at 10% -10%, rgba(146, 144, 195, 0.2), transparent 36%),
+-    radial-gradient(circle at 86% 0%, rgba(83, 92, 145, 0.28), transparent 42%),
+-    linear-gradient(180deg, #0d1638 0%, var(--paper) 55%, #0a1230 100%);
+-  color: var(--text);
+-  cursor: none;
+-  overflow-x: hidden;
+-  min-width: 20rem;
+-  padding-top: clamp(3.5rem, 10vw, 5rem);
+-}
+-
+-svg {
+-  flex-shrink: 0;
+-}
+-
+-img,
+-video,
+-canvas,
+-svg {
+-  max-width: 100%;
+-}
+-
+-/* custom cursor */
+-#cursor {
+-  width: 18px;
+-  height: 18px;
+-  border-radius: 50%;
+-  background: var(--c1);
+-  position: fixed;
+-  top: 0;
+-  left: 0;
+-  pointer-events: none;
+-  z-index: 9999;
+-  transform: translate(-50%, -50%);
+-  transition: background 0.15s, transform 0.1s;
+-  mix-blend-mode: screen;
+-}
+-
+-#cursor.big {
+-  transform: translate(-50%, -50%) scale(3);
+-  background: var(--c4);
+-}
+-
+-/* reveal animation */
+-@keyframes popIn {
+-  from {
+-    opacity: 0;
+-    transform: translateY(20px) scale(0.97);
+-  }
+-  to {
+-    opacity: 1;
+-    transform: none;
+-  }
++  margin: 0;
++  min-width: 320px;
++  background: var(--color-bg);
++  color: var(--color-text);
++  font-family: var(--font-body);
++  font-size: 1rem;
++  line-height: 1.65;
++  -webkit-font-smoothing: antialiased;
++  text-rendering: optimizeLegibility;
+ }
+ 
+-.pop {
+-  animation: popIn 0.5s ease both;
++h1, h2, h3, h4, p, ul, ol, figure, dl, dd {
++  margin: 0;
+ }
+ 
+-.pop1 {
+-  animation-delay: 0.1s;
++ul[role='list'],
++ol[role='list'] {
++  list-style: none;
++  padding: 0;
+ }
+ 
+-.pop2 {
+-  animation-delay: 0.2s;
++img {
++  display: block;
++  max-width: 100%;
+ }
+ 
+-.pop3 {
+-  animation-delay: 0.3s;
++a {
++  color: inherit;
+ }
+ 
+-.pop4 {
+-  animation-delay: 0.4s;
++::selection {
++  background: var(--color-accent-muted);
++  color: var(--color-text);
+ }
+ 
+-/* SPINNING STAR decoration */
+-.star {
+-  display: inline-block;
+-  animation: spin 8s linear infinite;
+-  font-size: 1.5rem;
++:focus-visible {
++  outline: 2px solid var(--color-accent);
++  outline-offset: 3px;
++  border-radius: 4px;
+ }
+ 
+-@keyframes spin {
+-  to {
+-    transform: rotate(360deg);
+-  }
++/* ==========================================================================
++   Utilities
++   ========================================================================== */
++.container {
++  width: 100%;
++  max-width: var(--container-max);
++  margin-inline: auto;
++  padding-inline: var(--gutter);
+ }
+ 
+-@media (max-width: 620px) {
+-  .hero-name {
+-    font-size: 3.5rem;
+-  }
++.visually-hidden {
++  position: absolute !important;
++  width: 1px;
++  height: 1px;
++  margin: -1px;
++  padding: 0;
++  overflow: hidden;
++  clip: rect(0, 0, 0, 0);
++  white-space: nowrap;
++  border: 0;
+ }
+ 
+-@media (hover: none), (pointer: coarse) {
+-  body {
+-    cursor: auto;
++.skip-link {
++  position: fixed;
++  top: var(--space-2);
++  left: var(--space-2);
++  z-index: 100;
++  padding: var(--space-2) var(--space-4);
++  background: var(--color-accent);
++  color: #fff;
++  font-size: 0.875rem;
++  border-radius: var(--radius-sm);
++  transform: translateY(-200%);
++}
++.skip-link:focus {
++  transform: none;
++}
++
++@media (prefers-reduced-motion: reduce) {
++  html {
++    scroll-behavior: auto;
+   }
+-
+-  #cursor {
+-    display: none;
++  *,
++  *::before,
++  *::after {
++    transition-duration: 0.01ms !important;
++    animation-duration: 0.01ms !important;
+   }
+ }

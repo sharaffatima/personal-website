@@ -1,38 +1,41 @@
-import { Rocket } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
+import { site } from '../data/site';
 import styles from '../styles/Contact.module.css';
+import { GithubIcon, LinkedinIcon } from './BrandIcons';
 
 export default function Contact() {
-  const contactLinks = [
-    {
-      label: 'Email',
-      href: 'mailto:sharaffatima000@gmail.com'
-    },
-    {
-      label: 'GitHub',
-      href: 'https://github.com/sharaffatima'
-    },
-    {
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/fatima-sharaf-417480340/'
-    }
-  ];
-
   return (
-    <section id="contact" className={styles.section}>
-      <div className={styles.contactBlob}>
-        <h3><Rocket size={24} style={{ display: 'inline-block', marginRight: '0.5rem', verticalAlign: 'middle' }} />Let's Connect</h3>
-        <p>
-          I'm interested in roles where I can contribute to meaningful projects and grow as a backend engineer.
-          Whether you're building healthcare tech, scalable systems, or solving complex infrastructure problems—
-          let's talk. I'm available for full-time positions, freelance projects, and collaborations starting 2026.
+    <section id="contact" className={styles.section} aria-labelledby="contact-title">
+      <div className="container">
+        <h2 id="contact-title" className={styles.title}>
+          Have a project in mind?
+        </h2>
+        <p className={styles.text}>
+          I&rsquo;m always interested in discussing thoughtful software projects and new ideas.
         </p>
-        <div className={styles.contactLinks}>
-          {contactLinks.map((link, idx) => (
-            <a key={idx} className={styles.contactBtn} href={link.href} target="_blank" rel="noopener noreferrer">
-              {link.label}
+
+        <a className={styles.email} href={`mailto:${site.email}`}>
+          <Mail size={20} aria-hidden="true" />
+          <span>Get in touch</span>
+          <ArrowUpRight className={styles.arrow} size={20} aria-hidden="true" />
+        </a>
+
+        <ul role="list" className={styles.links}>
+          <li>
+            <a href={site.github} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              <GithubIcon size={18} />
+              GitHub
+              <span className="visually-hidden"> (opens in a new tab)</span>
             </a>
-          ))}
-        </div>
+          </li>
+          <li>
+            <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              <LinkedinIcon size={18} />
+              LinkedIn
+              <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
   );

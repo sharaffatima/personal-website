@@ -1,254 +1,65 @@
 .hero {
-  position: relative;
-  padding: clamp(3rem, 8vw, 5rem) 0 clamp(2.4rem, 6vw, 4rem);
-  width: min(var(--content-max), calc(100% - (var(--content-gutter) * 2)));
-  margin: 0 auto;
-  z-index: 1;
+  padding-block: clamp(56px, 9vw, 120px) clamp(48px, 7vw, 96px);
 }
 
-.heroSup {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.85rem;
-  color: var(--c1);
-  background: rgba(146, 144, 195, 0.08);
+.inner {
+  display: grid;
+  justify-items: start;
+}
+
+.eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.9rem;
-  border: 2px dashed var(--c1);
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-  animation: blink 2s infinite;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.heroName {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3.5rem, 10vw, 6.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: 4px;
-  margin-bottom: 0.5rem;
-}
-
-.stroke {
-  -webkit-text-stroke: 2px var(--ink);
-  color: transparent;
-}
-
-.fillPink {
-  color: var(--c1);
-}
-
-.fillYellow {
-  color: var(--c4);
-}
-
-.heroRole {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.cursorBlink {
-  display: inline-block;
-  width: 10px;
-  height: 1.1em;
-  background: var(--c1);
-  animation: blink 1s infinite step-end;
-}
-
-.heroDesc {
-  max-width: 540px;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text);
-  margin-bottom: 2.5rem;
-  border-left: 5px solid var(--c1);
-  padding-left: 1.25rem;
-}
-
-.stickerRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
-}
-
-.sticker {
-  font-family: 'IBM Plex Mono', monospace;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid;
-  color: var(--text);
-  cursor: default;
-  transition: transform 0.15s, box-shadow 0.15s;
-  user-select: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
-.sticker:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 var(--ink);
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
 }
 
-.s1 {
-  background: rgba(146, 144, 195, 0.24);
-  border-color: rgba(176, 179, 223, 0.95);
+.title {
+  max-width: 17ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  /* ~38px on small phones, up to 76px on wide desktops */
+  font-size: clamp(2.375rem, 1.35rem + 4.4vw, 4.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
-.s2 {
-  background: rgba(83, 92, 145, 0.34);
-  border-color: rgba(146, 144, 195, 0.92);
+.text {
+  max-width: 52ch;
+  margin-top: var(--space-5);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  color: var(--color-text-muted);
 }
 
-.s3 {
-  background: rgba(27, 26, 85, 0.7);
-  border-color: rgba(146, 144, 195, 0.9);
-}
-
-.s4 {
-  background: rgba(122, 130, 183, 0.24);
-  border-color: rgba(176, 179, 223, 0.92);
-}
-
-.s5 {
-  background: rgba(176, 179, 223, 0.24);
-  border-color: rgba(195, 198, 235, 0.95);
-}
-
-.s6 {
-  background: rgba(83, 92, 145, 0.38);
-  border-color: rgba(195, 198, 235, 0.95);
-}
-
-.heroCtas {
+.actions {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-6);
 }
 
-.btn {
-  font-family: 'Sora', sans-serif;
-  font-weight: 800;
-  font-size: 0.95rem;
-  padding: 0.8rem 2rem;
-  border-radius: 6px;
-  border: 3px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
-  cursor: pointer;
-  text-decoration: none;
-  transition: transform 0.12s, box-shadow 0.12s;
-  display: inline-block;
-}
-
-.btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--ink);
-}
-
-.btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-.btnMain {
-  background: var(--c1);
-  color: #070f2b;
-}
-
-.btnGhost {
-  background: transparent;
-  color: var(--text);
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: clamp(2.6rem, 9vw, 4rem) 0 clamp(2.2rem, 6vw, 3rem);
-  }
-
-  .heroSup {
-    font-size: 0.75rem;
-    line-height: 1.5;
-    flex-wrap: wrap;
-  }
-
-  .heroName {
-    font-size: clamp(2.8rem, 18vw, 4.6rem);
-    letter-spacing: 2px;
-  }
-
-  .heroRole {
-    font-size: 0.95rem;
-    flex-wrap: wrap;
-  }
-
-  .heroDesc {
-    max-width: none;
-    font-size: 0.98rem;
-    line-height: 1.65;
-    padding-left: 1rem;
-  }
-
-  .heroCtas {
+@media (max-width: 479px) {
+  .actions {
     flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
   }
-
-  .btn {
+  .actions > :first-child {
     width: 100%;
     justify-content: center;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding: clamp(2.4rem, 8vw, 3.3rem) 0 2.4rem;
-  }
-
-  .heroSup {
-    padding: 0.35rem 0.7rem;
-  }
-
-  .heroName {
-    font-size: clamp(2.4rem, 17vw, 3.6rem);
-    line-height: 1;
-  }
-
-  .heroDesc {
-    border-left-width: 3px;
-    font-size: 0.93rem;
-    padding-left: 0.85rem;
-  }
-
-  .stickerRow {
-    gap: 0.55rem;
-  }
-
-  .sticker {
-    font-size: 0.68rem;
-    padding: 0.3rem 0.75rem;
-  }
-
-  .btn {
-    font-size: 0.9rem;
-    padding: 0.8rem 1rem;
   }
 }

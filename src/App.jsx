@@ -1,33 +1,24 @@
-import styles from './App.module.css';
 import About from './components/About';
 import Contact from './components/Contact';
-import Experience from './components/Experience';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
-import Interests from './components/Interests';
 import Navigation from './components/Navigation';
 import Projects from './components/Projects';
-import Skills from './components/Skills';
-import { useCursor } from './hooks/useCursor';
-import './styles/global.css';
+import Tools from './components/Tools';
 
-function App() {
-  const cursorRef = useCursor();
-
+export default function App() {
   return (
     <>
-      <div id="cursor" ref={cursorRef} className={styles.cursor}></div>
+      <a className="skip-link" href="#work">Skip to content</a>
       <Navigation />
-      <Hero />
-      <Projects />
-      <Experience />
-      <About />
-      <Skills />
-      <Interests />
-      <Contact />
+      <main>
+        <Hero />
+        <Projects />
+        <Tools />
+        <About />
+        <Contact />
+      </main>
       <Footer />
     </>
   );
 }
-
-export default App;

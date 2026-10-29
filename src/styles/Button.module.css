@@ -1,0 +1,39 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.icon {
+  display: inline-flex;
+  transition: transform var(--transition);
+}
+.button:hover .icon,
+.button:focus-visible .icon {
+  transform: translateX(3px);
+}
+
+.primary {
+  padding: 0 var(--space-5);
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+}
+.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.link {
+  color: var(--color-accent);
+  padding: 0 var(--space-1);
+}
+.link:hover {
+  color: var(--color-accent-hover);
+}

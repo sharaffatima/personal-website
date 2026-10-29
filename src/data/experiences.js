@@ -2,7 +2,7 @@ export const experiences = [
   {
     id: 1,
     period: '2025 - Present',
-    role: 'Backend Developer',
+    role: 'Backend developer',
     company: 'SharafAI',
     type: 'Volunteer',
     description:

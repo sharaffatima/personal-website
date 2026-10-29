@@ -1,40 +1,25 @@
-import { Code, Globe, GraduationCap, Lock, Sparkles, Wrench } from 'lucide-react';
 import styles from '../styles/About.module.css';
 
 export default function About() {
-  const funFacts = [
-    { icon: GraduationCap, text: 'Graduating in 2026 (Computer Science)' },
-    { icon: Code, text: 'Volunteering at SharafAI to help build meaningful projects' },
-    { icon: Lock, text: '1+ year experience in critical infrastructure & security' },
-    { icon: Wrench, text: 'Passionate about system design & backend architecture' },
-    { icon: Globe, text: 'Open to full-time roles & challenging projects' }
-  ];
-
   return (
-    <>
-      <div className={styles.aboutStrip}>
-        <div>
-          <h3>
-            A bit about me <Sparkles size={24} style={{ display: 'inline-block', marginLeft: '0.5rem', verticalAlign: 'middle' }} />
-          </h3>
+    <section id="about" className={styles.section} aria-labelledby="about-title">
+      <div className={`container ${styles.grid}`}>
+        <h2 id="about-title" className={styles.title}>
+          A little about me
+        </h2>
+        <div className={styles.text}>
           <p>
-            I'm a backend engineer graduating in 2026 with practical experience building production systems.
-            I've worked on critical infrastructure in IT/OT security and am now volunteering at SharafAI, a Syrian non-profit organization.
-            I focus on clean code, system design, and creating solutions that make a real impact.
+            I&rsquo;m a Computer Science graduate with a focus on backend development, full-stack applications, and applied AI. I enjoy building software end to end — from designing APIs and data models to developing the interfaces that make systems useful in practice.
+          </p>
+          <p>
+            I've gained hands-on experience in IT/OT operations for critical infrastructure and contribute to software projects as a backend developer at SharafAI.
+          </p>
+          <p>
+            My projects range from full-stack business applications and offline-first systems to explainable machine learning for ECG anomaly detection.
+            I value clean architecture, maintainable code, and practical solutions to real problems. I'm always looking to deepen my technical skills and build software that is both useful and dependable.
           </p>
         </div>
-        <ul className={styles.funFacts}>
-          {funFacts.map((fact, idx) => {
-            const IconComponent = fact.icon;
-            return (
-              <li key={idx}>
-                <IconComponent size={18} className={styles.factIcon} />
-                {fact.text}
-              </li>
-            );
-          })}
-        </ul>
       </div>
-    </>
+    </section>
   );
 }
